@@ -3,7 +3,7 @@
         <span v-for="(item, index) in parsedData" :key="index" :class="['block', 'clearfix', {'hide-block': hideMyBlock[index] == true}]">
             <span class="json-key">
                 <input type="text" v-model="item.key" class="key-input" v-if="item.key" @change="revertObj">
-                <i class="collapse-down" v-if="getType(item.val) !== 'normal'" @click="closeBlock(index, $event)">
+                <i class="collapse-down" v-if="item.type == 'object' || item.type == 'array'" @click="closeBlock(index, $event)">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA8klEQVRYR+2U3REBQRCEv4uAEGSADMhABogEkSADGSADMiADMlBdNfei1v5e4WH37ep2pr/t3Z6GH6/mx/pUgOpAdaA64HPgAgw7GlTqNXb1+hbAFRilAvSBG9ArdOFu4o9UAO0X9akA4glMAF2Bc8WkQA2OmS5M7QAfy2MAVLwAtokQS2AXqokFUJ81sAo1tP8b2x/cngKgZjrRPNB1b44FxbUhFUA1vvlwtkcXJZ4LoHgqGe9DSlnXg3XGrSQFrtqBOdHOCMVNkdXcSFo5V9AKSPBgHzNf1n1EJQBJJ+36CjoRz32EnYlXgOpAdeAvHHgBK3McIenq8YEAAAAASUVORK5CYII=" alt="">
                 </i>
                 <i class="del-btn" @click="delItem(parsedData, item, index)">
@@ -13,11 +13,11 @@
                 <span class="des" @click="addDes('修改', item)" v-else>{{item.des}}</span>
             </span>
             <span class="json-val">
-                <template v-if="getType(item.val) == 'object'">
+                <template v-if="item.type == 'object'">
                     <json-view :objData="item.val" v-model="item.val" ></json-view>
                 </template>
 
-                <template v-else-if="getType(item.val) == 'array'">
+                <template v-else-if="item.type == 'array'">
                     <array-view :arrayData="item.val" v-model="item.val" ></array-view>
                 </template>
 
@@ -57,7 +57,9 @@ export default {
         if(this.top) {
         }
 
-        this.parseObj()
+        this.parsedData = this.objData
+
+        // this.parseObj()
         // console.debug(this.top)
 
         if (this.top) {
@@ -115,34 +117,6 @@ export default {
             // console.debug('i am built data')
         },
 
-        'revertObj': function () {
-            // if(this.parsedData.length <= 0) {
-            //     return
-            // }
-       
-            // let firstKey = this.parsedData[0].key
-            // let type = firstKey?'object':'array'
-            // let res = null
-            // if(type == 'object') {
-            //     res = {}
-            //     this.parsedData.forEach((item) => {
-            //         res[item.key] = item.val
-            //     })
-
-            // } else {
-            //     res = this.parsedData[0].val
-            // }
-            // let res = this.parsedData
-            // this.$emit('input', res)
-            // this.$emit('childUpdate')
-            // console.debug(res)
-            
-            if(!this.top) {
-                this.$bus.$emit('childDataUpdata')
-            }
-        
-        },
-
         'getType': function(obj) {
             switch (Object.prototype.toString.call(obj)) {
                 case '[object Array]': 
@@ -164,7 +138,6 @@ export default {
             } else {
                 this.parsedData = this.parsedData.rmIndex(index)
             }
-            this.revertObj()
         },
 
         'closeBlock': function (index, e) {

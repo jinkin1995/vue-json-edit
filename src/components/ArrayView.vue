@@ -2,22 +2,22 @@
     <div class="block_content array">
         <ol class="array-ol">
             <li v-for="(member, index) in parsedData" :key="index" :class="['array-item', {'hide-item': hideMyItem[index] == true}]">
-                <p v-if="getType(member.val) == 'normal'">
+                <p v-if="member.type !== 'object' && member.type !== 'array'">
                     <input type="text" v-model="parsedData[index].val" class="val-input" @change="revertObj">
                 </p>
                 <div v-else>
-                    <span :class="['json-key']">{{getType(parsedData[index].val)}}
-                        <i class="collapse-down" v-if="getType(member.val) !== 'normal'" @click="closeBlock(index, $event)">
+                    <span :class="['json-key']">{{parsedData[index].type.toUpperCase()}}
+                        <i class="collapse-down" v-if="member.type == 'object' || member.type == 'array'" @click="closeBlock(index, $event)">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA8klEQVRYR+2U3REBQRCEv4uAEGSADMhABogEkSADGSADMiADMlBdNfei1v5e4WH37ep2pr/t3Z6GH6/mx/pUgOpAdaA64HPgAgw7GlTqNXb1+hbAFRilAvSBG9ArdOFu4o9UAO0X9akA4glMAF2Bc8WkQA2OmS5M7QAfy2MAVLwAtokQS2AXqokFUJ81sAo1tP8b2x/cngKgZjrRPNB1b44FxbUhFUA1vvlwtkcXJZ4LoHgqGe9DSlnXg3XGrSQFrtqBOdHOCMVNkdXcSFo5V9AKSPBgHzNf1n1EJQBJJ+36CjoRz32EnYlXgOpAdeAvHHgBK3McIenq8YEAAAAASUVORK5CYII=" alt="">
                         </i>
                     </span>   
 
                     <span class="json-val">         
-                        <template v-if="getType(member.val) == 'array'">
+                        <template v-if="member.type == 'array'">
                             <array-view :arrayData="parsedData[index].val" v-model="parsedData[index].val"></array-view>
                         </template>
 
-                        <template v-if="getType(member.val) == 'object'">
+                        <template v-if="member.type == 'object'">
                             <json-view :objData="parsedData[index].val" v-model="parsedData[index].val"></json-view>
                         </template>
                         
@@ -59,7 +59,7 @@ export default {
     },
     mounted: function() {
         // console.debug(this.arrayData)
-        this.parseObj()
+        // this.parseObj()
     },
     methods: {
         // 'childUpdate': function () {
@@ -93,18 +93,6 @@ export default {
             this.$emit('input', this.parsedData)
         },
 
-        'revertObj': function() {
-            if (this.parsedData.length <= 0) {
-                return
-            }
-            let res = this.parsedData
-
-            this.$emit('input', res)
-            // this.$emit('childUpdate')
-            this.$bus.$emit('childDataUpdata')
-
-        },
-
         'getType': function(obj) {
             switch (Object.prototype.toString.call(obj)) {
                 case '[object Array]':
@@ -126,8 +114,6 @@ export default {
             console.debug(index)
             //parsedData 为数组转换， 即objData is a Array
             this.parsedData = this.parsedData.rmIndex(index)
-            
-            this.revertObj()
         },
 
         'addItem': function () {
@@ -152,7 +138,6 @@ export default {
         'newItem': function (obj) {
             this.toAddItem = false
             this.parsedData.push(obj.value)
-            this.revertObj()
         }
     }
 
