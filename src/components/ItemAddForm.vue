@@ -11,8 +11,8 @@
         <input type="text" v-model="valName" class="f-input" placeholder="value" v-if="formatSelected == 'string'">
         <input type="number" v-model="valName" class="f-input" placeholder="value" v-if="formatSelected == 'number'" @change="dealNumber">
         <select name="value" v-model="valName" class="f-input" v-if="formatSelected == 'boolean'" @change="dealBoolean">
-            <option value=true>true</option>
-            <option value=false>false</option>
+            <option :value="true">true</option>
+            <option :value="false">false</option>
         </select>
 
       </template>
@@ -46,24 +46,22 @@ export default {
     methods: {
         'confirm': function () {
             let val = null
-            if(this.formatSelected === 'array') {
+            if(this.formatSelected === 'array' || this.formatSelected === 'object') {
                 val = []
-            } else if(this.formatSelected === 'object') {
-                val = {}
             } else {
                 val = this.valName
             }
 
             let objData = {
-                'value': val,
-                'format': this.formatSelected
-            }
-
-            if(this.needName) {
-                objData['name'] = this.keyName
+                'key': this.needName?this.keyName:null,
+                'val': val,
+                'type': this.formatSelected
             }
 
             this.$emit('confirm', objData)
+            this.keyName = ''
+            this.valName = ''
+            this.formatSelected = 'string'
         },
 
         'cancel': function () {

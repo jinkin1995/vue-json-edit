@@ -1,9 +1,14 @@
 <template>
     <div class="block_content array">
         <ol class="array-ol">
-            <li v-for="(member, index) in parsedData" :key="index" :class="['array-item', {'hide-item': hideMyItem[index] == true}]">
+            <li v-for="(member, index) in flowData" :key="index" :class="['array-item', {'hide-item': hideMyItem[index] == true}]">
                 <p v-if="member.type !== 'object' && member.type !== 'array'">
-                    <input type="text" v-model="parsedData[index].val" class="val-input" @change="revertObj">
+                    <input type="text" v-model="parsedData[index].val" class="val-input" v-if="member.type == 'string'">
+                    <input type="number" v-model="parsedData[index].val" class="val-input" v-if="member.type == 'number'">
+                    <select name="value" v-model="parsedData[index].val" class="val-input" v-if="member.type == 'boolean'">
+                        <option :value="true">true</option>
+                        <option :value="false">false</option>
+                    </select>
                 </p>
                 <div v-else>
                     <span :class="['json-key']">{{parsedData[index].type.toUpperCase()}}
@@ -14,11 +19,11 @@
 
                     <span class="json-val">         
                         <template v-if="member.type == 'array'">
-                            <array-view :arrayData="parsedData[index].val" v-model="parsedData[index].val"></array-view>
+                            <array-view :parsedData="parsedData[index].val" v-model="parsedData[index].val"></array-view>
                         </template>
 
                         <template v-if="member.type == 'object'">
-                            <json-view :objData="parsedData[index].val" v-model="parsedData[index].val"></json-view>
+                            <json-view :parsedData="parsedData[index].val" v-model="parsedData[index].val"></json-view>
                         </template>
                         
                     </span>        
@@ -45,10 +50,10 @@ import ItemAddForm from './ItemAddForm.vue'
 
 export default {
     name: 'ArrayView',
-    props: ['arrayData'],
+    props: ['parsedData'],
     data: function() {
         return {
-            'parsedData': this.arrayData,
+            'flowData': this.parsedData,
             'toAddItem': false,
             'hideMyItem': []
         }
@@ -57,42 +62,7 @@ export default {
         // 'json-view': JsonView
         'item-add-form': ItemAddForm
     },
-    mounted: function() {
-        // console.debug(this.arrayData)
-        // this.parseObj()
-    },
     methods: {
-        // 'childUpdate': function () {
-        //     console.debug('-array')
-        //     this.$emit('childUpdate')
-        // },
-        'parseObj': function () {
-            let tmpData = []
-            this.arrayData.forEach((el, index) => {
-                let type = this.getType(el)
-                if(type == 'object') {
-                    tmpData.push({
-                        'key': null,
-                        'val': el
-                    })
-                } else if(type == 'array') {
-                    tmpData.push({
-                        'key': null,
-                        'val': el
-                    })
-                    
-                } else {
-                    tmpData.push({
-                        'key': null,
-                        'val': el
-                    })
-                }
-            })
-
-            this.parsedData = tmpData
-            this.$emit('input', this.parsedData)
-        },
-
         'getType': function(obj) {
             switch (Object.prototype.toString.call(obj)) {
                 case '[object Array]':
@@ -108,12 +78,9 @@ export default {
         },
 
         'delItem': function (parentDom, item, index) {
-            console.debug(parentDom)
-            console.debug(this.parsedData)
-            console.debug(item)
-            console.debug(index)
             //parsedData 为数组转换， 即objData is a Array
-            this.parsedData = this.parsedData.rmIndex(index)
+            this.flowData = this.flowData.rmIndex(index)
+            this.$emit('input', this.flowData)
         },
 
         'addItem': function () {
@@ -125,19 +92,14 @@ export default {
         },
 
         'closeBlock': function (index, e) {
-            // let dom = e.target
-            // let allBlock = dom.parentNode.querySelectorAll('.block_content')
-            // for(let i = 0; i < allBlock.length; ++i) {
-            //     console.debug(allBlock[i])
-            //     allBlock[i].classList.toggle('hide')
-            // }
             this.hideMyItem[index] = this.hideMyItem[index]?false:true
             this.$forceUpdate()
         },
 
         'newItem': function (obj) {
             this.toAddItem = false
-            this.parsedData.push(obj.value)
+            this.flowData.push(obj)
+            this.$emit('input', this.flowData)
         }
     }
 

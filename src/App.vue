@@ -1,99 +1,44 @@
 <template>
   <div id="app">
-    <json-view :objData="jsonParsedData" top=true></json-view>
-    <!-- <textarea name="" id="" rows="100" style="width: 100%" v-model="displayData"></textarea> -->
+    <JsonEditor :objData="jsonData" v-model="jsonData"></JsonEditor>
     <div>
-        {{displayData}}
+        <!-- {{displayData}} -->
     </div>
   </div>
 </template>
 
 <script>
-import JsonView from './components/JsonView.vue'
+import JsonEditor from './components/JsonEditor.vue'
 
 export default {
   name: 'app',
   data: function() {
     return {
-      // 'json': ['123', '42', '555', ['ff', 'vvv'], '123', '22', ['ghr', 'bfvz', 'feas', ['ffcc', '3fff', 'casd']], '44ffff'],
-      // 'jsonData': {
-      //   'name': 'jinkin',
-      //   'age': 12,
-      //   'address': ['Panyu Shiqiao on Canton', 'Tianhe', {
-      //     'namll': 'world inside',
-      //     'city': 'forida meta 11'
-      //   }, ['nammm', 'fefasas', 'cadasda'], {
-      //       'ge': 'asdasdasd',
-      //       'grqq': 'adsadasdsad'
-      //     }],
-      //   'ohters': {
-      //     'id': 1246,
-      //     'joinTime': '2017-08-20. 10:20',
-      //     'description': 'another man'
-      //   }
-      // },
-      // 'finalData': {},
-      // 'displayData': ''
-
-
-      // --
-      'jsonParsedData': [{
-        'key': 'name',
-        'type': 'string',
-        'val': 'jinkin'
-      }, {
-        'key': 'age',
-        'type': 'number',
-        'val': 22
-      }, {
-        'key': 'address',
-        'type': 'array',
-        'val': [{
-          'key': null,
-          'type': 'string',
-          'val': '1111'
-        }, {
-          'key': null,
-          'type': 'number',
-          'val': 222
-        }, {
-          'key': null,
-          'type': 'object',
-          'val': [{
-            'key': 'o1',
-            'type': 'number',
-            'val': 111
-          }, {
-            'key': 'o2',
-            'type': 'string',
-            'val': '222'
-          }]
-        }]
-      }, {
-        'key': 'objectList',
-        'type': 'object',
-        'val': [{
-          'key': 'a11',
-          'type': 'string',
-          'val': 'o1111'
-        }, {
-          'key': 'a22',
-          'type': 'string',
-          'val': 'o2222'
-        }]
-      }]
+      'jsonData': {
+        'name': 'jinkin',
+        'age': 12,
+        'address': ['Panyu Shiqiao on Canton', 'Tianhe', {
+          'namll': 'world inside',
+          'city': 'forida meta 11'
+        }, ['nammm', 'fefasas', 'cadasda'], {
+            'ge': 'asdasdasd',
+            'grqq': 'adsadasdsad'
+          }],
+        'ohters': {
+          'id': 1246,
+          'joinTime': '2017-08-20. 10:20',
+          'description': 'another man'
+        }
+      }
     }
   },
   watch: {
     'finalData': function () {
-      console.debug(this.finalData)
-      // this.displayData = this.formatJson(this.finalData)
       this.displayData = JSON.stringify(this.finalData, null, 2)
     }
-    // 'fj'
   },
   components: {
-    // 'json-view': JsonView
+    'JsonEditor': JsonEditor
   },
   methods: {
     'getFinalObj': function(e) {

@@ -1,8 +1,8 @@
 <template>
     <div class="block_content">
-        <span v-for="(item, index) in parsedData" :key="index" :class="['block', 'clearfix', {'hide-block': hideMyBlock[index] == true}]">
+        <span v-for="(item, index) in flowData" :key="index" :class="['block', 'clearfix', {'hide-block': hideMyBlock[index] == true}]">
             <span class="json-key">
-                <input type="text" v-model="item.key" class="key-input" v-if="item.key" @change="revertObj">
+                <input type="text" v-model="item.key" class="key-input" v-if="item.key">
                 <i class="collapse-down" v-if="item.type == 'object' || item.type == 'array'" @click="closeBlock(index, $event)">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA8klEQVRYR+2U3REBQRCEv4uAEGSADMhABogEkSADGSADMiADMlBdNfei1v5e4WH37ep2pr/t3Z6GH6/mx/pUgOpAdaA64HPgAgw7GlTqNXb1+hbAFRilAvSBG9ArdOFu4o9UAO0X9akA4glMAF2Bc8WkQA2OmS5M7QAfy2MAVLwAtokQS2AXqokFUJ81sAo1tP8b2x/cngKgZjrRPNB1b44FxbUhFUA1vvlwtkcXJZ4LoHgqGe9DSlnXg3XGrSQFrtqBOdHOCMVNkdXcSFo5V9AKSPBgHzNf1n1EJQBJJ+36CjoRz32EnYlXgOpAdeAvHHgBK3McIenq8YEAAAAASUVORK5CYII=" alt="">
                 </i>
@@ -14,16 +14,21 @@
             </span>
             <span class="json-val">
                 <template v-if="item.type == 'object'">
-                    <json-view :objData="item.val" v-model="item.val" ></json-view>
+                    <json-view :parsedData="item.val" v-model="item.val" ></json-view>
                 </template>
 
                 <template v-else-if="item.type == 'array'">
-                    <array-view :arrayData="item.val" v-model="item.val" ></array-view>
+                    <array-view :parsedData="item.val" v-model="item.val" ></array-view>
                 </template>
 
                 <template v-else>
                     <span class="val">    
-                        <input type="text" v-model="item.val" class="val-input" @change="revertObj">
+                        <input type="text" v-model="item.val" class="val-input" v-if="item.type == 'string'">
+                        <input type="number" v-model="item.val" class="val-input" v-if="item.type == 'number'">
+                        <select name="value" v-model="item.val" class="val-input" v-if="item.type == 'boolean'">
+                            <option :value="true">true</option>
+                            <option :value="false">false</option>
+                        </select>
                     </span>
                 </template>
             </span>
@@ -40,10 +45,10 @@ import ItemAddForm from './ItemAddForm.vue'
 
 export default {
     name: 'JsonView',
-    props: {'objData': {}, 'top': {default:false}},
+    props: {'parsedData': {}, 'top': {default:false}},
     data: function () {
         return {
-            'parsedData': [],
+            'flowData': [],
             'toAddItem': false,
             'hideMyBlock': {}
         }
@@ -57,97 +62,21 @@ export default {
         if(this.top) {
         }
 
-        this.parsedData = this.objData
+        this.flowData = this.parsedData
 
-        // this.parseObj()
-        // console.debug(this.top)
-
-        if (this.top) {
-            this.$bus.$on('childDataUpdata', () => {
-                // this.revertObj()
-            })
-        }
-
-        // this.$on('finalObj',  (e) => {
-        //     this.myObj = this.revertObj()
-        //     this.$emit('finalObj', this.myObj)
-        //     this.myObj = null
-        //     console.debug(e)
-        // })
-        // this.$on('childUpdate', (e) => {
-        //     console.debug('0000 -- updata')
-        //     console.debug('top', this.top)
-        //     if(!this.top) {
-        //         // this.$emit('childUpdate')
-        //     }
-        // })
+        // if (this.top) {
+        //     this.$bus.$on('childDataUpdata', () => {
+        //         // this.revertObj()
+        //     })
+        // }
     },
     methods: {
-        // 'childUpdate': function () {
-        //     console.debug('-json')
-        //     console.debug(this.top)
-        //     if(this.top) {
-        //         this.revertObj()
-        //     } else {
-        //         this.$emit('childUpdate')
-
-        //     }
-        // },
-
-        'parseObj': function () {
-            let tmpData = []
-            let type = this.getType(this.objData)
-            if(type == 'object') {
-                let keys = Object.keys(this.objData)
-                keys.forEach((x) => {
-                    tmpData.push({
-                        'key': x,
-                        'val': this.objData[x]
-                    })
-                })
-            } else if(type == 'array') {
-                tmpData.push({
-                    'key': null,
-                    'val': this.objData
-                })
-            }
-            this.parsedData = tmpData
-            console.debug('<==emit==>', this)
-            // this.$emit('input', this.parsedData)
-            // console.debug('i am built data')
-        },
-
-        'getType': function(obj) {
-            switch (Object.prototype.toString.call(obj)) {
-                case '[object Array]': 
-                    return 'array'
-                    break
-                case '[object Object]':
-                    return 'object'
-                    break
-                default:
-                    return 'normal'
-                    break
-            } 
-        },
-
         'delItem': function (parentDom, item, index) {
-            //parsedData 为数组转换， 即objData is a Array
-            if(this.parsedData[0].key == null) {
-                this.parsedData[0].val = this.parsedData[0].val.rmIndex(index)
-            } else {
-                this.parsedData = this.parsedData.rmIndex(index)
-            }
+            this.flowData = this.flowData.rmIndex(index)
+            this.$emit('input', this.flowData)
         },
 
         'closeBlock': function (index, e) {
-            // let dom = e.target
-            // console.debug(dom)
-            // let allBlock = dom.parentNode.querySelectorAll('.block_content')
-            // for(let i = 0; i < allBlock.length; ++i) {
-            //     console.debug(allBlock[i])
-            //     allBlock[i].classList.toggle('hide')
-            // }
             this.hideMyBlock[index] = this.hideMyBlock[index]?false:true
             this.$forceUpdate()
             console.debug(this.hideMyBlock)
@@ -171,12 +100,13 @@ export default {
 
         'newItem': function (obj) {
             this.toAddItem = false
-            this.parsedData.push({
-                'key': obj.name,
-                'val': obj.value
+            this.flowData.push({
+                'key': obj.key,
+                'type': obj.type,
+                'val': obj.val
             })
             // this.revertObj()
-            this.$emit('input', this.parsedData)
+            this.$emit('input', this.flowData)
         }
     }
 }
