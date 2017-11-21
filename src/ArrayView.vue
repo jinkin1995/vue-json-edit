@@ -3,9 +3,9 @@
         <ol class="array-ol">
             <li v-for="(member, index) in flowData" :key="index" :class="['array-item', {'hide-item': hideMyItem[index] == true}]">
                 <p v-if="member.type !== 'object' && member.type !== 'array'">
-                    <input type="text" v-model="parsedData[index].val" class="val-input" v-if="member.type == 'string'">
-                    <input type="number" v-model="parsedData[index].val" class="val-input" v-if="member.type == 'number'">
-                    <select name="value" v-model="parsedData[index].val" class="val-input" v-if="member.type == 'boolean'">
+                    <input type="text" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'string'">
+                    <input type="number" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'number'">
+                    <select name="value" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'boolean'">
                         <option :value="true">true</option>
                         <option :value="false">false</option>
                     </select>
@@ -19,11 +19,11 @@
 
                     <span class="json-val">         
                         <template v-if="member.type == 'array'">
-                            <array-view :parsedData="parsedData[index].val" v-model="parsedData[index].val"></array-view>
+                            <array-view :parsedData="parsedData[index].childParams" v-model="parsedData[index].childParams"></array-view>
                         </template>
 
                         <template v-if="member.type == 'object'">
-                            <json-view :parsedData="parsedData[index].val" v-model="parsedData[index].val"></json-view>
+                            <json-view :parsedData="parsedData[index].childParams" v-model="parsedData[index].childParams"></json-view>
                         </template>
                         
                     </span>        
@@ -63,23 +63,9 @@ export default {
         'item-add-form': ItemAddForm
     },
     methods: {
-        'getType': function(obj) {
-            switch (Object.prototype.toString.call(obj)) {
-                case '[object Array]':
-                    return 'array'
-                    break
-                case '[object Object]':
-                    return 'object'
-                    break
-                default:
-                    return 'normal'
-                    break
-            }
-        },
-
         'delItem': function (parentDom, item, index) {
-            //parsedData 为数组转换， 即objData is a Array
             this.flowData = this.flowData.rmIndex(index)
+            this.hideMyBlock[index] = false
             this.$emit('input', this.flowData)
         },
 
@@ -98,8 +84,23 @@ export default {
 
         'newItem': function (obj) {
             this.toAddItem = false
-            this.flowData.push(obj)
+    
+            let oj = {
+                'name': obj.key,
+                'type': obj.type,
+                'description': ''
+            }
+            if(obj.type == 'array' || obj.type == 'object') {
+                oj.childParams = obj.val
+                oj.remark = null
+            } else {
+                oj.childParams = null
+                oj.remark = obj.val
+            }
+            
+            this.flowData.push(oj)
             this.$emit('input', this.flowData)
+            this.cancelNewItem()
         }
     }
 
