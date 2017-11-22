@@ -44,7 +44,6 @@
     </div>
 </template>
 
-
 <script>
 import ItemAddForm from './ItemAddForm.vue'
 
@@ -59,7 +58,6 @@ export default {
         }
     },
     components: {
-        // 'json-view': JsonView
         'item-add-form': ItemAddForm
     },
     methods: {
@@ -87,8 +85,7 @@ export default {
     
             let oj = {
                 'name': obj.key,
-                'type': obj.type,
-                'description': ''
+                'type': obj.type
             }
             if(obj.type == 'array' || obj.type == 'object') {
                 oj.childParams = obj.val
@@ -97,35 +94,12 @@ export default {
                 oj.childParams = null
                 oj.remark = obj.val
             }
-            
+
             this.flowData.push(oj)
             this.$emit('input', this.flowData)
             this.cancelNewItem()
         }
     }
-
-
 }
 
 </script>
-
-<style>
-.array-ol {
-    padding-left: 20px !important;
-}
-
-.array-item.hide-item {
-    background: #f5f5f5;
-}
-
-.array-item.hide-item .json-val {
-    display: none;
-}
-
-.array-item.hide-item .collapse-down {
-    transform: rotate(-90deg);
-}
-
-
-
-</style>

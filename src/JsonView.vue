@@ -31,7 +31,7 @@
                 </template>
             </span>
         </span>
-        
+
         <item-add-form v-if="toAddItem" @confirm="newItem" @cancel="cancelNewItem"></item-add-form>
 
         <div class="block add-key" @click="addItem" v-if="!toAddItem">
@@ -54,12 +54,12 @@ export default {
         }
     },
 
+    created: function () {
+        this.flowData = this.parsedData
+    },
+
     components: {
         'item-add-form': ItemAddForm
-    },
-    created: function () {
-
-        this.flowData = this.parsedData
     },
     methods: {
         'delItem': function (parentDom, item, index) {
@@ -83,12 +83,10 @@ export default {
         },
 
         'newItem': function (obj) {
-            this.toAddItem = false
     
             let oj = {
                 'name': obj.key,
-                'type': obj.type,
-                'description': ''
+                'type': obj.type
             }
             if(obj.type == 'array' || obj.type == 'object') {
                 oj.childParams = obj.val
@@ -97,144 +95,18 @@ export default {
                 oj.childParams = null
                 oj.remark = obj.val
             }
-            
-            this.flowData.push(oj)
-            this.$emit('input', this.flowData)
-            this.cancelNewItem()
+
+            if(!oj.name) {
+                alert('please must input a name!')
+                return
+            } else {
+
+                this.flowData.push(oj)
+                this.$emit('input', this.flowData)
+                this.cancelNewItem()
+            }
         }
     }
 }
 
 </script>
-
-
-<style>
-p {
-    margin: 0
-}
-
-ol, ul {
-    margin: 0;
-}
-
-.block{
-    position: relative;
-    display: block;
-    min-height: 30px;
-}
-
-.block.hide-block {
-    background: #f5f5f5;
-}
-
-.block.hide-block .json-val {
-    display: none;
-}
-
-.block.hide-block .collapse-down {
-    transform: rotate(-90deg);
-}
-
-.del-btn {
-    position: absolute;
-    right: 0;
-    top: 7px;
-    /* transform: translateY(-50%); */
-    /* margin-right: 10px; */
-    z-index: 99999999999999;
-    cursor: pointer;
-    height: 8px;
-    width: 8px;
-    /* background: red; */
-}
-
-.des {
-    position: absolute;
-    right: 14px;
-    font-size: 10px;
-    line-height: 30px;
-    color: #6190e8;
-    cursor: pointer;
-}
-
-.add-des {
-    /* float: right; */
-    color: #999;
-}
-
-.del-btn:hover {
-    opacity: .5;
-}
-
-.block_content {
-    text-align: left;
-    margin-left: 30px;
-    line-height: unset !important;
-}
-
-.block_content .json-key {
-    font-weight: bold;
-}
-
-.block_content .key-input,
-.block_content .val-input {
-    width: 140px;
-    border: none;
-    height: 25px;
-    padding: 0 5px;
-    font-weight: bold;
-    font-size: 14px;
-    background: rgba(0,0,0,0);
-}
-
-.block_content .key-input:focus,
-.block_content .val-input:focus {
-    background: #ffffa0;
-    border: none;
-    outline: 0;
-}
-
-.block_content .val-input {
-    font-weight: normal;
-    color: #008000;
-}
-
-.collopsed:before {
-    content: '';
-    display: inline-block;
-    height: 10px;
-    width: 10px;
-    background: #333;
-}
-
-.array-item {
-    position: relative;
-}
-
-.collapse-down {
-    float: left;
-    /* display: inline-block; */
-    height: 18px;
-    width: 18px;
-    margin-top: 2px;
-    margin-right: 2px;
-    cursor: pointer;
-}
-
-.collapse-down img {
-    width: 100%
-}
-
-.add-key {
-    display: inline-block;
-    height: 14px;
-    width: 14px;
-    padding: 5px;
-    cursor: pointer;
-}
-
-.add-key img {
-    width: 100%;
-}
-
-</style>

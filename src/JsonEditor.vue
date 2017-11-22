@@ -4,8 +4,9 @@
 
 
 <script>
-import ArrayView from './ArrayView.vue'
 import JsonView from './JsonView.vue'
+import ArrayView from './ArrayView.vue'
+import Vue from 'vue'
 
 export default {
     name: 'JsonEditor',
@@ -17,10 +18,9 @@ export default {
     },
     created: function() {
         this.parsedData = this.jsonParse(this.objData)
-    },
-    components: {
-        "array-view": ArrayView,
-        "json-view": JsonView
+        // console.debug('this', this)
+        Vue.component('json-view', JsonView)
+        Vue.component('array-view', ArrayView)
     },
     watch: {
         'parsedData': {
@@ -58,8 +58,7 @@ export default {
 
                     let opt = {
                         'name': k,
-                        'type': this.getType(val),
-                        'description': ''
+                        'type': this.getType(val)
                     }
 
                     if(opt.type == 'array' || opt.type == 'object') {
@@ -91,8 +90,7 @@ export default {
 
                     let opt = {
                         'name': null,
-                        'type': this.getType(val),
-                        'description': ''
+                        'type': this.getType(val)
                     }
 
                     if(opt.type == 'array' || opt.type == 'object') {
@@ -190,3 +188,8 @@ export default {
 }
 
 </script>
+
+<style>
+@import url('./assets/styles/common.css');
+
+</style>

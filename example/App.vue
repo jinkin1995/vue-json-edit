@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="j-w">
 		<h1>JSON-EDITOR</h1>
 		<JsonEditor :objData="jsonData" v-model="parsedData" @getJson="getJson"></JsonEditor>
 	</div>
@@ -141,5 +141,10 @@ textarea {
 pre {
 
 	width: 500px;
+}
+
+.j-w {
+	width: 600px;
+	padding: 0 20px;
 }
 </style>
