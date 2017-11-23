@@ -9,6 +9,8 @@
                 <i class="del-btn" @click="delItem(parsedData, item, index)">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA2klEQVQ4T82TvQ0CMQxG3/VIwAYU9MAGjMAINJQImABGQGIAVmADGOHYgBHuahr0nRxkHYnkEjeRYvvl808qfm0CXO16aWcLrIFbP7zKAM7ACtgAb/OfgBkwLgHmwNCcAgyAiwueAlsgKZLrCTRJQeMAGVHZqwVQ50qIAro4D5C8YyC7Bg4pzgMegHqhgJKNrJnfvD5Aib5RfZB8d6+8BJASBWpsmopsb/AQwL+k0pKysIL/AqT913qHS9C49Kk0Up2yVwSg/6Bul0zT0VSyeyDHLrCJ+tpS2NkH0SguEVDIXI8AAAAASUVORK5CYII=" alt="">
                 </i>
+                <i v-if="item.type == 'object'" class="i-type">{{'{' + item.childParams.length + '}'}}</i>
+                <i v-if="item.type == 'array'" class="i-type">{{'[' + item.childParams.length + ']'}}</i>
             </span>
             <span class="json-val">
                 <template v-if="item.type == 'object'">

@@ -11,7 +11,8 @@ module.exports = {
 			options: {
 				loaders: {
 					stylus: 'vue-style-loader!css-loader!stylus-loader',
-					styl: 'vue-style-loader!css-loader!stylus-loader'
+					styl: 'vue-style-loader!css-loader!stylus-loader',
+					less: 'vue-style-loader!css-loader!less-loader'
 				}
 			}
 		}, {

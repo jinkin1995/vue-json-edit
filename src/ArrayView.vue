@@ -11,10 +11,12 @@
                     </select>
                 </p>
                 <div v-else>
-                    <span :class="['json-key']">{{parsedData[index].type.toUpperCase()}}
+                    <span :class="['json-key', 'json-desc']">{{parsedData[index].type.toUpperCase()}}
                         <i class="collapse-down" v-if="member.type == 'object' || member.type == 'array'" @click="closeBlock(index, $event)">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA8klEQVRYR+2U3REBQRCEv4uAEGSADMhABogEkSADGSADMiADMlBdNfei1v5e4WH37ep2pr/t3Z6GH6/mx/pUgOpAdaA64HPgAgw7GlTqNXb1+hbAFRilAvSBG9ArdOFu4o9UAO0X9akA4glMAF2Bc8WkQA2OmS5M7QAfy2MAVLwAtokQS2AXqokFUJ81sAo1tP8b2x/cngKgZjrRPNB1b44FxbUhFUA1vvlwtkcXJZ4LoHgqGe9DSlnXg3XGrSQFrtqBOdHOCMVNkdXcSFo5V9AKSPBgHzNf1n1EJQBJJ+36CjoRz32EnYlXgOpAdeAvHHgBK3McIenq8YEAAAAASUVORK5CYII=" alt="">
                         </i>
+                        <i v-if="member.type == 'object'">{{'{' + parsedData[index].childParams.length + '}'}}</i>
+                        <i v-if="member.type == 'array'">{{'[' + parsedData[index].childParams.length + ']'}}</i>
                     </span>   
 
                     <span class="json-val">         

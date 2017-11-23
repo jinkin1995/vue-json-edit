@@ -189,7 +189,7 @@ export default {
 
 </script>
 
-<style>
-@import url('./assets/styles/common.css');
+<style lang="less">
+@import url('./assets/styles/common.less');
 
 </style>

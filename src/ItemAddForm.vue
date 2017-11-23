@@ -1,7 +1,7 @@
 <template>
   <div class="add-form">
       <input type="text" v-model="keyName" class="f-input" placeholder="name" v-if="needName">
-      <select v-model="formatSelected" class="f-input">
+      <select v-model="formatSelected" class="f-select">
           <option :value="item" v-for="(item, index) in formats" :key="item">{{item}}</option>
       </select>
       <span>:</span>
@@ -19,8 +19,10 @@
 
 
       <!-- -- -->
-      <button @click="confirm">确定</button>
-      <button @click="cancel">取消</button>
+      <div class="f-btns">
+        <button class="f-btn f-confirm" @click="confirm">确定</button>
+        <button class="f-btn" @click="cancel">取消</button>
+      </div>
   </div>
 
 </template>
@@ -83,6 +85,45 @@ export default {
 <style>
 .f-input {
     height: 20px;
+    padding: 4px 6px; 
+}
+
+.f-select {
+    position: relative;
+    padding: .6em 1em .65em;  
+    border: solid 1px #ccc;
+    background: #fff; 
+    appearance:none;  
+    -moz-appearance:none;  
+    -webkit-appearance:none; 
+}
+
+
+
+.f-btns {
+    display: inline-block;
+    margin-top: .5em;
+}
+
+.f-btn {
+    display: inline-block;  
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */  
+    *display: inline;  
+    vertical-align: baseline;  
+    margin: 0 2px;  
+    outline: none;  
+    cursor: pointer;  
+    text-align: center;  
+    text-decoration: none;  
+    padding: .6em 1em .65em;  
+    -webkit-border-radius: .5em;   
+    -moz-border-radius: .5em;  
+    border-radius: .5em;  
+}
+
+.f-confirm {
+    color: #fff;
+    background: #05A5D1;
 }
 
 .add-form {
