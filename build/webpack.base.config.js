@@ -1,4 +1,3 @@
-
 module.exports = {
 	module: {
 		loaders: [{
@@ -27,6 +26,12 @@ module.exports = {
 		}, {
 			test: /\.svg$/,
 			loader: 'url-loader'
+		}, {
+			test: /\.(woff2?|woff|eot|ttf|otf)(\?.*)?$/,
+			loader: 'url-loader',
+			options: {
+	        	name: '[name].[ext]?[hash]'
+	        }
 		}]
 	}
 }

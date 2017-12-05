@@ -30,9 +30,9 @@
 
 
 import JsonEditor from './JsonEditor.vue'
-import PackageFile from '../package.json';
+import PackageFile from '../package.json'
 
-const VERSION = PackageFile.version;
+const VERSION = PackageFile.version
 
 // const componentsArray = [
 //   JsonEditor
@@ -40,7 +40,7 @@ const VERSION = PackageFile.version;
 
 const install = (Vue) => {
   /* istanbul ignore if */
-  if (install.installed) return;
+  if (install.installed) return
 
   Vue.component('JsonEditor', JsonEditor)
 
@@ -48,12 +48,12 @@ const install = (Vue) => {
 	  this.splice(index, 1)
 	  return this
 	}
-};
+}
 
-export default install;
+export default install
 
 export const components = {
   JsonEditor,
   VERSION
-};
+}
 
