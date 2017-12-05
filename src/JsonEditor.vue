@@ -53,7 +53,6 @@ export default {
                         // console.debug(val)
                         parsedVal = parseArray(val)
                         // result.push(fr)
-
                     }
 
                     let opt = {
@@ -150,7 +149,6 @@ export default {
 
                     r[key] = val
                 }
-
                 return r
             }
 
@@ -181,9 +179,7 @@ export default {
             } 
 
             return revertMain(dataArr)
-
         }
-
     }
 }
 

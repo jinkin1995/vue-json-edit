@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "webpack --progress --config ./build/webpack.dev.config",
-    "dev": "webpack-dev-server --watch --progress --config ./build/webpack.pro.config.js --open --hot --host 0.0.0.0",
+    "dev": "webpack-dev-server --watch --progress --config ./build/webpack.pro.config.js --open --hot --host 127.0.0.1",
     "example": "rimraf ./example/dist && webpack --progress --config ./build/webpack.pro.config.js"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.14.1",
     "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^1.1.4",
+    "file-loader": "^1.1.5",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.3",

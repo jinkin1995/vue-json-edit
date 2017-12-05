@@ -3,8 +3,8 @@
         <ol class="array-ol">
             <li v-for="(member, index) in flowData" :key="index" :class="['array-item', {'hide-item': hideMyItem[index] == true}]">
                 <p v-if="member.type !== 'object' && member.type !== 'array'">
-                    <input type="text" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'string'">
-                    <input type="number" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'number'">
+                    <input type="text" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'string'" placeholder="string">
+                    <input type="number" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'number'" placeholder="number">
                     <select name="value" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'boolean'">
                         <option :value="true">true</option>
                         <option :value="false">false</option>
@@ -13,7 +13,7 @@
                 <div v-else>
                     <span :class="['json-key', 'json-desc']">{{parsedData[index].type.toUpperCase()}}
                         <i class="collapse-down" v-if="member.type == 'object' || member.type == 'array'" @click="closeBlock(index, $event)">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA8klEQVRYR+2U3REBQRCEv4uAEGSADMhABogEkSADGSADMiADMlBdNfei1v5e4WH37ep2pr/t3Z6GH6/mx/pUgOpAdaA64HPgAgw7GlTqNXb1+hbAFRilAvSBG9ArdOFu4o9UAO0X9akA4glMAF2Bc8WkQA2OmS5M7QAfy2MAVLwAtokQS2AXqokFUJ81sAo1tP8b2x/cngKgZjrRPNB1b44FxbUhFUA1vvlwtkcXJZ4LoHgqGe9DSlnXg3XGrSQFrtqBOdHOCMVNkdXcSFo5V9AKSPBgHzNf1n1EJQBJJ+36CjoRz32EnYlXgOpAdeAvHHgBK3McIenq8YEAAAAASUVORK5CYII=" alt="">
+                            <i class="icon-down-open"></i>
                         </i>
                         <i v-if="member.type == 'object'">{{'{' + parsedData[index].childParams.length + '}'}}</i>
                         <i v-if="member.type == 'array'">{{'[' + parsedData[index].childParams.length + ']'}}</i>
@@ -32,8 +32,7 @@
                 </div>
                 
                 <i class="del-btn" @click="delItem(parsedData, member, index)">
-
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA2klEQVQ4T82TvQ0CMQxG3/VIwAYU9MAGjMAINJQImABGQGIAVmADGOHYgBHuahr0nRxkHYnkEjeRYvvl808qfm0CXO16aWcLrIFbP7zKAM7ACtgAb/OfgBkwLgHmwNCcAgyAiwueAlsgKZLrCTRJQeMAGVHZqwVQ50qIAro4D5C8YyC7Bg4pzgMegHqhgJKNrJnfvD5Aib5RfZB8d6+8BJASBWpsmopsb/AQwL+k0pKysIL/AqT913qHS9C49Kk0Up2yVwSg/6Bul0zT0VSyeyDHLrCJ+tpS2NkH0SguEVDIXI8AAAAASUVORK5CYII=" alt="">
+                    <i class="icon-trash"></i>
                 </i>
             </li>
         </ol>
@@ -41,7 +40,7 @@
         <item-add-form v-if="toAddItem" @confirm="newItem" @cancel="cancelNewItem" :needName="false"></item-add-form>
 
         <div class="block add-key" v-if="!toAddItem" @click="addItem">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAdklEQVRYR+2WQQqAMAwEpy+zP1N/Zl+mBBQvFjZS0MMu5NRtGoYmbSGvBZg721Yg1mUV2XkbXYAJmIAJmMBwApFwT4zkCkQ8aQMiZMVbkDlcTqwaXYAJ/IJA6gt1tuDUueXtTRuqHXP5hg8iF2ACJmACJvApgQOKCjwa9m4YqAAAAABJRU5ErkJggg==" alt="">
+            <i class="icon-plus"></i>
         </div>
     </div>
 </template>
@@ -56,7 +55,7 @@ export default {
         return {
             'flowData': this.parsedData,
             'toAddItem': false,
-            'hideMyItem': []
+            'hideMyItem': {}
         }
     },
     components: {
@@ -65,7 +64,7 @@ export default {
     methods: {
         'delItem': function (parentDom, item, index) {
             this.flowData = this.flowData.rmIndex(index)
-            this.hideMyBlock[index] = false
+            if(this.hideMyItem[index])  this.hideMyItem[index] = false
             this.$emit('input', this.flowData)
         },
 
