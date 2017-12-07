@@ -2,11 +2,17 @@
 	<div class="j-w">
 		<h1>JSON-EDITOR</h1>
 		<JsonEditor :objData="jsonData" v-model="jsonData" ></JsonEditor>
+		<div slot="content">
+          <pre>
+            <code class="json" id="res_code"></code>
+          </pre>
+        </div>
 	</div>
+	
 </template>
 
 <script>
-// import JsonEditor from './components/JsonEditor.vue'
+import hljs from 'highlight.js'
 
 export default {
 	name: 'app',
@@ -31,14 +37,15 @@ export default {
 			parsedData: []
 		}
 	},
-	// components: {
-	// 	'JsonEditor': JsonEditor
-	// },
-	methods: {
-		getJson: function (obj) {
-			console.debug(obj)
-		},
+	watch: {
+		'jsonData': function () {
+			let c = this.formatJson(JSON.stringify(this.jsonData))
+			this.drawResCode(c)
+		}
+	},
 
+	methods: {
+	
 		//JSON format print
 		formatJson: function(txt, compress /*是否为压缩模式*/) {
 			/* 格式化JSON源码(对象转换为JSON文本) */
@@ -102,9 +109,18 @@ export default {
 				indent = 0;
 			notify("", data, isLast, indent, false);
 			return draw.join("");
-		}
+		},
+
+		//绘制res body
+		drawResCode: function (content) {
+			var target = document.getElementById('res_code');
+			target.textContent = content
+			hljs.highlightBlock(target)
+		},
 	},
 	mounted: function() {
+		let c = this.formatJson(JSON.stringify(this.jsonData))
+		this.drawResCode(c)
 	}
 }
 </script>
