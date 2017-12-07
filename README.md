@@ -25,7 +25,7 @@ import JsonEditor from 'vue-json-editor'
 Vue.use(JsonEditor)
 
 
-//or, require
+//or
 import JsonEditor from 'vue-json-editor'
 
 export default {
