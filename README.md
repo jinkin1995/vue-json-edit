@@ -1,4 +1,4 @@
-# VUE-JsonEditor
+# Vue-JsonEditor
 
 > visual JSON editor built as an vue component. Provides a basic GUI
 
@@ -31,7 +31,7 @@ import JsonEditor from 'vue-json-editor'
 export default {
   ...
   components: {
-    JsonEditor,
+    JsonEditor
   },
 }
   
