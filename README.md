@@ -2,12 +2,15 @@
 
 > visual JSON editor built as an vue component. Provides a basic GUI
 
----
+
+</br>
 
 
 ## Getting Started
+``` javascript
+npm install vue-jsonEditor --save
+```
 
-> npm install vue-jsonEditor --save
 ---
 
 
@@ -40,22 +43,22 @@ Single file component
 ``` html
 
 <template>
-	<JsonEditor :objData="jsonData" v-model="jsonData" ></JsonEditor>
+    <JsonEditor :objData="jsonData" v-model="jsonData" ></JsonEditor>
 </template>
 <script>
-  export default {
+export default {
     ...
-	data: function() {
-		return {
-			jsonData: {
-				name: 'mike',
+    data: function() {
+        return {
+            jsonData: {
+                name: 'mike',
                 age: 22,
                 phone: '18552129932',
                 address: ['AAA C1', 'BBB C2']
-			}
-		}
-	}
-  }
+            }
+        }
+    }
+}
 </script> 
 
 ```
