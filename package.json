@@ -1,5 +1,5 @@
 {
-  "name": "json-editor",
+  "name": "vue-json-editor",
   "version": "1.0.0",
   "description": "visual JSON editor built as an vue component",
   "author": "Jinkin1995 <jinkin1995@gmail.com>",
@@ -8,6 +8,21 @@
     "build": "webpack --progress --config ./build/webpack.dev.config",
     "dev": "webpack-dev-server --watch --progress --config ./build/webpack.pro.config.js --open --hot --host 127.0.0.1",
     "example": "rimraf ./example/dist && webpack --progress --config ./build/webpack.pro.config.js"
+  },
+  "keywords": [
+    "Vue",
+    "json"
+  ],
+  "main": "./src/index.js",
+  "module": "./dist/vue-jsonEditor.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jinkin1995/vue-jsonEditor.git"
+  },  
+  "homepage": "https://github.com/jinkin1995/vue-jsonEditor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jinkin1995/vue-jsonEditor/issues"
   },
   "dependencies": {
     "install": "^0.10.1",

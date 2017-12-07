@@ -77,8 +77,7 @@ export default {
         },
 
         'closeBlock': function (index, e) {
-            this.hideMyItem[index] = this.hideMyItem[index]?false:true
-            this.$forceUpdate()
+            this.$set(this.hideMyItem, index, this.hideMyItem[index]?false:true)
         },
 
         'newItem': function (obj) {

@@ -71,9 +71,7 @@ export default {
         },
 
         'closeBlock': function (index, e) {
-            this.hideMyBlock[index] = this.hideMyBlock[index]?false:true
-            this.$forceUpdate()
-            console.debug(this.hideMyBlock)
+            this.$set(this.hideMyBlock, index, this.hideMyBlock[index]?false:true)
         },
 
         'addItem': function () {
