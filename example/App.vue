@@ -1,7 +1,7 @@
 <template>
 	<div class="j-w">
 		<h1>JSON-EDITOR</h1>
-		<JsonEditor :objData="jsonData" v-model="parsedData" @getJson="getJson"></JsonEditor>
+		<JsonEditor :objData="jsonData" v-model="jsonData" ></JsonEditor>
 	</div>
 </template>
 

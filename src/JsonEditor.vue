@@ -25,8 +25,9 @@ export default {
     watch: {
         'parsedData': {
             handler(newValue, oldValue) {
-                this.$emit('getJson', this.makeJson(this.parsedData))
-                this.$emit('input', this.parsedData)
+                // this.$emit('getJson', this.makeJson(this.parsedData))
+                this.$emit('input', this.makeJson(this.parsedData))
+                // this.$emit('input', this.parsedData)
 　　　　　　  },
 　　　　    deep: true
 　　　　}   
