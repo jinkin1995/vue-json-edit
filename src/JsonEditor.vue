@@ -18,16 +18,13 @@ export default {
     },
     created: function() {
         this.parsedData = this.jsonParse(this.objData)
-        // console.debug('this', this)
         Vue.component('json-view', JsonView)
         Vue.component('array-view', ArrayView)
     },
     watch: {
         'parsedData': {
             handler(newValue, oldValue) {
-                // this.$emit('getJson', this.makeJson(this.parsedData))
                 this.$emit('input', this.makeJson(this.parsedData))
-                // this.$emit('input', this.parsedData)
 　　　　　　  },
 　　　　    deep: true
 　　　　}   
@@ -35,7 +32,7 @@ export default {
     methods: {
         'jsonParse': function (jsonStr) {
 
-            // 解析JSON
+            //
             let parseJson = (json) => {
                 let result = []
                 let keys = Object.keys(json)
@@ -74,7 +71,7 @@ export default {
                 return result
             }
 
-            //  解析ARRAY
+            //
             let parseArray = (arrayObj) => {
                 let result = []
                 for (let i = 0; i < arrayObj.length; ++i) {
@@ -131,7 +128,6 @@ export default {
 
         'makeJson': function (dataArr) {
 
-            // 翻译JSON
             let revertWithObj = function(data) {
                 let r = {}
                 for(let i = 0; i < data.length; ++i) {
@@ -153,7 +149,6 @@ export default {
                 return r
             }
 
-            // 翻译Array
             let revertWithArray = function(data) {
                 let arr = []
                 for(let i = 0; i < data.length; ++i) {

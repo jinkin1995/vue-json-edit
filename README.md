@@ -3,15 +3,16 @@
 > visual JSON editor built as an vue component. Provides a basic GUI
 
 
+</br>
 
 
-  **[DEMO](http://jinkin1995.github.io/vue-jsonEditor)**
+## **[DEMO](http://jinkin1995.github.io/vue-jsonEditor)**
 
 </br>
 
 
 ## Getting Started
-``` javascript
+```
 npm install vue-jsonEditor --save
 ```
 
