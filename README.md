@@ -3,6 +3,10 @@
 > visual JSON editor built as an vue component. Provides a basic GUI
 
 
+
+
+  **[DEMO](http://jinkin1995.github.io/vue-jsonEditor)**
+
 </br>
 
 
@@ -11,7 +15,7 @@
 npm install vue-jsonEditor --save
 ```
 
----
+</br>
 
 
 ## Usage
@@ -36,7 +40,7 @@ export default {
 }
   
 ```
----
+</br>
 
 ## Example
 Single file component

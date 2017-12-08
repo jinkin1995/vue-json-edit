@@ -1,14 +1,23 @@
 <template>
 	<div class="j-w">
-		<h1>JSON-EDITOR</h1>
-		<JsonEditor :objData="jsonData" v-model="jsonData" ></JsonEditor>
-		<div slot="content">
-          <pre>
-            <code class="json" id="res_code"></code>
-          </pre>
-        </div>
+		<h1 class="t">Vue-JsonEditor</h1>
+		<div class="editor-w clearfix">
+			<div class="w-2">
+				<div class="editor">
+					<JsonEditor :objData="jsonData" v-model="jsonData" ></JsonEditor>
+				</div>
+			</div>
+			<div class="w-2">
+				<div class="code-pre">
+					<div slot="content">
+						<pre>
+							<code class="json" id="res_code"></code>
+						</pre>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	
 </template>
 
 <script>
@@ -33,8 +42,7 @@ export default {
 					joinTime: '2017-08-20. 10:20',
 					description: 'another man'
 				}
-			},
-			parsedData: []
+			}
 		}
 	},
 	watch: {
@@ -124,4 +132,11 @@ export default {
 	}
 }
 </script>
+
+<style>
+@import url('../node_modules/highlight.js/styles/github.css');
+
+
+</style>
+
 
