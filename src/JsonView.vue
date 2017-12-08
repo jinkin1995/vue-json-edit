@@ -24,7 +24,7 @@
                 <template v-else>
                     <span class="val">    
                         <input type="text" v-model="item.remark" class="val-input" v-if="item.type == 'string'">
-                        <input type="number" v-model="item.remark" class="val-input" v-if="item.type == 'number'">
+                        <input type="number" v-model.number="item.remark" class="val-input" v-if="item.type == 'number'">
                         <select name="value" v-model="item.remark" class="val-input" v-if="item.type == 'boolean'">
                             <option :value="true">true</option>
                             <option :value="false">false</option>

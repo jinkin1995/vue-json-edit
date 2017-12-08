@@ -4,7 +4,7 @@
             <li v-for="(member, index) in flowData" :key="index" :class="['array-item', {'hide-item': hideMyItem[index] == true}]">
                 <p v-if="member.type !== 'object' && member.type !== 'array'">
                     <input type="text" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'string'" placeholder="string">
-                    <input type="number" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'number'" placeholder="number">
+                    <input type="number" v-model.number="parsedData[index].remark" class="val-input" v-if="member.type == 'number'" placeholder="number">
                     <select name="value" v-model="parsedData[index].remark" class="val-input" v-if="member.type == 'boolean'">
                         <option :value="true">true</option>
                         <option :value="false">false</option>

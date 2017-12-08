@@ -84,7 +84,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 
 .f-input,
 .f-btns {
@@ -96,8 +96,6 @@ export default {
     margin-top: 0.5em;
 }
 
-// .f-input-m {}
-
 .f-confirm {
     color: #fff;
     background: #05a5d1;
@@ -105,6 +103,7 @@ export default {
 
 .add-form {
     margin-bottom: 20px;
+    font-size: .6em;
 }
 
 </style>
