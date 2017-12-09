@@ -30,15 +30,7 @@ import JsonEditor from 'vue-json-edit'
 Vue.use(JsonEditor)
 
 
-//or
-import JsonEditor from 'vue-json-edit'
 
-export default {
-  ...
-  components: {
-    JsonEditor
-  },
-}
   
 ```
 </br>
