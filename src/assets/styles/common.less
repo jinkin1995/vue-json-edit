@@ -1,0 +1,149 @@
+@import './pure/base-min.css';
+@import './pure/buttons-min.css';
+@import './pure/forms-min.css';
+@import './fontello.css';
+
+p {
+    margin: 0
+}
+
+ol, ul {
+    margin: 0;
+}
+
+.block{
+    position: relative;
+    display: block;
+    line-height: 30px;
+}
+
+.block.hide-block {
+    background: #f5f5f5;
+
+    .json-val {
+        display: none;
+    }
+
+    .collapse-down {
+        transform: rotate(-90deg);
+    }
+}
+
+
+.del-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 99999999999999;
+    cursor: pointer;
+    transition: opacity .4s ease;
+
+    &:hover {
+        opacity: .6;
+    }
+}
+
+.des {
+    position: absolute;
+    right: 14px;
+    font-size: 10px;
+    line-height: 30px;
+    color: #6190e8;
+    cursor: pointer;
+}
+
+.add-des {
+    color: #999;
+}
+
+.block_content {
+    text-align: left;
+    margin-left: 30px;
+    line-height: 1.5 !important;
+
+    .i-type {
+        color: #999;
+    }
+
+    .key-input,
+    .val-input {
+        width: 140px;
+        border: none;
+        height: 25px;
+        padding: 0 5px;
+        font-weight: bold;
+        font-size: 14px;
+        background: rgba(0,0,0,0);
+
+        &:focus {
+            background: #ffffa0;
+            border: none;
+            outline: 0;
+        }
+    }
+
+    .val-input {
+        font-weight: normal;
+        color: #0b8e6b;
+    }
+}
+
+.block_content .json-key {
+    font-weight: bold;
+
+    &.json-desc {
+        color: #999;
+        font-size: .8em;
+    }
+}
+
+
+.collopsed:before {
+    content: '';
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    background: #333;
+}
+
+.collapse-down {
+    float: left;
+    margin-top: 2px;
+    margin-right: 2px;
+    color: #000;
+    cursor: pointer;
+    transition: transform .2s ease;
+}
+
+.add-key {
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-bottom: 10px;
+    font-size: .8em;
+    line-height: 1em;
+    cursor: pointer;
+}
+
+
+.array-ol {
+    padding-left: 20px !important;
+}
+
+.array-item {
+    position: relative;
+
+    &.hide-item {
+        background: #f5f5f5;
+
+        .json-val {
+            display: none;
+        }
+
+        .collapse-down {
+            transform: rotate(-90deg);
+            // transition: transform .4s ease;
+        }
+    }
+}
+
