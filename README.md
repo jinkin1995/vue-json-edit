@@ -6,7 +6,7 @@
 </br>
 
 
-## **[DEMO](http://jinkin1995.github.io/vue-jsonEditor)**
+## **[DEMO](http://jinkin1995.github.io/vue-json-edit)**
 
 </br>
 
