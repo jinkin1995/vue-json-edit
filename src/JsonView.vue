@@ -2,7 +2,7 @@
     <div class="block_content">
         <span v-for="(item, index) in flowData" :key="index" :class="['block', 'clearfix', {'hide-block': hideMyBlock[index] == true}]">
             <span class="json-key">
-                <input type="text" v-model="item.name" class="key-input" v-if="item.name">
+                <input type="text" v-model="item.name" class="key-input" v-if="typeof item.name == 'string'" @blur="keyInputBlur(item, $event)">
                 <i class="collapse-down" v-if="item.type == 'object' || item.type == 'array'" @click="closeBlock(index, $event)">
                     <i class="icon-down-open"></i>
                 </i>
@@ -105,6 +105,17 @@ export default {
                 this.$emit('input', this.flowData)
                 this.cancelNewItem()
             }
+        },
+
+        'keyInputBlur': function (item, e) {
+            if(item.name.length <= 0) {
+                alert('please must input a name!')
+                item.name = "null"
+                e.target.focus()
+                // return 1
+            }
+            console.debug(item)
+            console.debug(e)
         }
     }
 }

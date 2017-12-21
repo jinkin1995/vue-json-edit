@@ -1,6 +1,6 @@
 <template>
 	<div class="j-w">
-		<h1 class="t">Vue-JsonEditor</h1>
+		<h1 class="t">Vue-Json-Edit</h1>
 		<div class="editor-w clearfix">
 			<div class="w-2">
 				<div class="editor">
