@@ -13,11 +13,23 @@ export default {
         }
     },
     created: function() {
+        this.lastParsedData={};
         this.parsedData = this.jsonParse(this.objData)
     },
     watch: {
+        'objData': {
+            handler(newValue, oldValue) {
+                 this.parsedData = this.jsonParse(this.objData)
+　　　　　　  },
+　　　　},
         'parsedData': {
             handler(newValue, oldValue) {
+                if(JSON.stringify(newValue)===JSON.stringify(this.lastParsedData))
+                {
+                    return; 
+                }
+
+                this.lastParsedData=newValue;
                 this.$emit('input', this.makeJson(this.parsedData))
 　　　　　　  },
 　　　　    deep: true
