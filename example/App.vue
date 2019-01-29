@@ -51,9 +51,16 @@ export default {
 			this.drawResCode(c)
 		}
 	},
-
+	async beforeCreate() {
+		setTimeout(
+		(() => {
+			console.log('test');
+			this.jsonData = { test: 4123 };
+		}).bind(this),
+		2000,
+		);
+	},
 	methods: {
-	
 		//JSON format print
 		formatJson: function(txt, compress /*是否为压缩模式*/) {
 			/* 格式化JSON源码(对象转换为JSON文本) */

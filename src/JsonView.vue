@@ -59,7 +59,13 @@ export default {
     created: function () {
         this.flowData = this.parsedData
     },
-
+    watch:{
+          'parsedData': {
+            handler(newValue, oldValue) {
+                this.flowData = this.parsedData
+　　　　　　  },
+　　　　},
+    },
     components: {
         'item-add-form': ItemAddForm
     },
