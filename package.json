@@ -1,0 +1,54 @@
+{
+  "name": "vue-json-edit",
+  "version": "1.1.5",
+  "description": "visual JSON editor built as an vue component",
+  "author": "Jinkin1995 <jinkin1995@gmail.com>",
+  "keywords": [
+    "vue",
+    "json"
+  ],
+  "main": "./src/index.js",
+  "module": "./dist/vue-json-edit.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jinkin1995/vue-json-edit.git"
+  },
+  "homepage": "https://github.com/jinkin1995/vue-json-edit",
+  "bugs": {
+    "url": "https://github.com/jinkin1995/vue-json-edit/issues"
+  },
+  "license": "Apache 2",
+  "scripts": {
+    "dev": "webpack-dev-server --open --config webpack.config.js",
+    "example": "rm -rf ./example/dist/*.js && rm -rf ./example/dist/*.html && webpack --progress --config webpack.config.js",
+    "build": "webpack --progress --config webpack.build.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "node-sass": "^4.11.0",
+    "resolve-url-loader": "^3.0.1",
+    "sass": "^1.17.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.8",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "highlight.js": "^9.15.6",
+    "vue": "^2.6.8"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
