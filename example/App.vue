@@ -28,8 +28,8 @@ export default {
 	data: function() {
 		return {
 			jsonData: {
-				name: 'jinkin',
-				age: 12,
+				name: 'may',
+				age: 23,
 				address: ['Panyu Shiqiao on Canton', 'Tianhe', {
 					namll: 'world inside',
 					city: 'forida meta 11'

@@ -1,30 +1,27 @@
-const webpack = require('webpack');
-const config = require('./webpack.base.config');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const baseConfig = require('./webpack.base');
 
-config.entry = './src/index.js';
+const config = baseConfig;
+
+config.mode = 'development';
+
+config.entry = './example/main.js';
 config.output = {
-  path: path.resolve('dist'),
-  filename: 'vue-json-edit.js',
-  library: 'vue-json-edit',
-  libraryTarget: 'umd',
-};
-config.externals = {
-  vue: 'Vue',
+  path: path.resolve(__dirname, './example/dist/'),
+  publicPath: '',
+  filename: '[name]_[hash].js',
 };
 
-config.plugins = (config.plugins || []).concat([
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify('production'),
-    },
-  }),
-  new webpack.optimize.UglifyJsPlugin({
-    sourceMap: false,
-    compress: {
-      warnings: false,
-    },
-    comments: false,
-  }),
-]);
-module.exports = config;
+config.devtool = 'inline-source-map';
+config.devServer = {
+	contentBase: './dist'
+};
+
+config.plugins = config.plugins.concat([
+	new HtmlWebpackPlugin({
+		template: './example/index.html'
+	})
+])
+
+module.exports = config
