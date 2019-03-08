@@ -31,16 +31,12 @@ export default {
 				name: 'may',
 				age: 23,
 				address: ['Panyu Shiqiao on Canton', 'Tianhe', {
-					namll: 'world inside',
 					city: 'forida meta 11'
-				}, ['nammm', 'fefasas', 'cadasda'], {
-					ge: 'asdasdasd',
-					grqq: 'adsadasdsad'
 				}],
 				ohters: {
 					id: 1246,
 					joinTime: '2017-08-20. 10:20',
-					description: 'another man'
+					description: 'another'
 				}
 			}
 		}
@@ -54,7 +50,6 @@ export default {
 	async beforeCreate() {
 		setTimeout(
 		(() => {
-			console.log('test');
 			this.jsonData = { test: 4123 };
 		}).bind(this),
 		2000,
@@ -142,7 +137,6 @@ export default {
 
 <style>
 @import url('../node_modules/highlight.js/styles/github.css');
-
 
 </style>
 

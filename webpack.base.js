@@ -13,7 +13,10 @@ config.module = {
 			exclude: file => (
 				/node_modules/.test(file) &&
 				!/\.vue\.js/.test(file)
-			)
+			),
+			query: {
+					presets: ['es2015', 'stage-0']
+			}
 		},
 		{
 			test: /\.css$/,
