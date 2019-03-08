@@ -14,9 +14,9 @@ const install = (Vue) => {
   Vue.component('array-view', ArrayView)
 
   Array.prototype.rmIndex = function (index) {
-	  this.splice(index, 1)
-	  return this
-	}
+    this.splice(index, 1)
+    return this
+  }
 }
 
 export default install
@@ -25,4 +25,3 @@ export const components = {
   JsonEditor,
   VERSION
 }
-
