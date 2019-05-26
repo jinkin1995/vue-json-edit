@@ -56,3 +56,10 @@ export default {
 </script> 
 
 ```
+
+## Changelog
+
+v1.3.0
+* Options prop for sets the strings of the button
+
+
