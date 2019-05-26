@@ -2,17 +2,29 @@
   <json-view :parsedData="parsedData" v-model="parsedData"></json-view>
 </template>
 
-
 <script>
 export default {
   name: "JsonEditor",
-  props: { objData: { required: true } },
-  data: function() {
+  props: {
+    objData: {
+      type: Object,
+      required: true 
+    },
+    options: {
+      type: Object,
+    }
+  },
+  provide () {
+    return {
+      formBtnText: this.options
+    }
+  },
+  data () {
     return {
       parsedData: []
     };
   },
-  created: function() {
+  created () {
     this.lastParsedData = {};
     this.parsedData = this.jsonParse(this.objData);
   },
@@ -35,7 +47,7 @@ export default {
     }
   },
   methods: {
-    jsonParse: function(jsonStr) {
+    jsonParse: function (jsonStr) {
       let parseJson = json => {
         let result = [];
         let keys = Object.keys(json);
@@ -105,7 +117,7 @@ export default {
       return parseBody(jsonStr);
     },
 
-    getType: function(obj) {
+    getType: function (obj) {
       switch (Object.prototype.toString.call(obj)) {
         case "[object Array]":
           return "array";
@@ -119,7 +131,7 @@ export default {
       }
     },
 
-    makeJson: function(dataArr) {
+    makeJson: function (dataArr) {
       let revertWithObj = function(data) {
         let r = {};
         for (let i = 0; i < data.length; ++i) {

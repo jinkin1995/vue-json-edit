@@ -1,9 +1,19 @@
 <template>
   <div class="add-form pure-form">
     <div class="f-input">
-      <input type="text" v-model="keyName" class="f-input-m" placeholder="name" v-if="needName">
+      <input 
+        type="text" 
+        v-model="keyName"
+        v-if="needName"
+        class="f-input-m" 
+        placeholder="name">
       <select v-model="formatSelected" class="f-input-m">
-        <option :value="item" v-for="(item, index) in formats" :key="index">{{item}}</option>
+        <option 
+          v-for="(item, index) in formats"
+          :value="item"
+          :key="index">
+          {{item}}
+        </option>
       </select>
       <span class="f-input-m">
         <b>:</b>
@@ -39,22 +49,30 @@
     </div>
 
     <div class="f-btns">
-      <button class="pure-button f-confirm" @click="confirm">确定</button>
-      <button class="pure-button" @click="cancel">取消</button>
+      <button 
+        class="pure-button f-confirm" 
+        @click="confirm">
+        {{ this.formBtnText.confirmText }}
+      </button>
+      <button 
+        class="pure-button"
+        @click="cancel">
+        {{ this.formBtnText.cancelText }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ItemAddForm",
-  data: function() {
+  name: 'ItemAddForm',
+  data () {
     return {
-      formats: ["string", "array", "object", "number", "boolean"],
-      formatSelected: "string",
+      formats: ['string', 'array', 'object', 'number', 'boolean'],
+      formatSelected: 'string',
       //--
-      keyName: "",
-      valName: ""
+      keyName: '',
+      valName: ''
     };
   },
   props: {
@@ -62,10 +80,11 @@ export default {
       default: true
     }
   },
+  inject: ['formBtnText'],
   methods: {
     confirm: function() {
       let val = null;
-      if (this.formatSelected === "array" || this.formatSelected === "object") {
+      if (this.formatSelected === 'array' || this.formatSelected === 'object') {
         val = [];
       } else {
         val = this.valName;
@@ -77,14 +96,14 @@ export default {
         type: this.formatSelected
       };
 
-      this.$emit("confirm", objData);
-      this.keyName = "";
-      this.valName = "";
-      this.formatSelected = "string";
+      this.$emit('confirm', objData);
+      this.keyName = '';
+      this.valName = '';
+      this.formatSelected = 'string';
     },
 
     cancel: function() {
-      this.$emit("cancel");
+      this.$emit('cancel');
     },
 
     dealBoolean: function() {

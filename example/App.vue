@@ -4,7 +4,13 @@
 		<div class="editor-w clearfix">
 			<div class="w-2">
 				<div class="editor">
-					<JsonEditor :objData="jsonData" v-model="jsonData" ></JsonEditor>
+					<JsonEditor
+						:options="{
+							confirmText: 'confirm',
+							cancelText: 'cancel',
+						}"
+						:objData="jsonData" 
+						v-model="jsonData" ></JsonEditor>
 				</div>
 			</div>
 			<div class="w-2">
@@ -46,14 +52,6 @@ export default {
 			let c = this.formatJson(JSON.stringify(this.jsonData))
 			this.drawResCode(c)
 		}
-	},
-	async beforeCreate() {
-		setTimeout(
-		(() => {
-			this.jsonData = { test: 4123 };
-		}).bind(this),
-		2000,
-		);
 	},
 	methods: {
 		//JSON format print

@@ -58,9 +58,15 @@
       </span>
     </span>
 
-    <item-add-form v-if="toAddItem" @confirm="newItem" @cancel="cancelNewItem"></item-add-form>
+    <item-add-form 
+      v-if="toAddItem" 
+      @confirm="newItem" 
+      @cancel="cancelNewItem"></item-add-form>
 
-    <div class="block add-key" @click="addItem" v-if="!toAddItem">
+    <div 
+      class="block add-key" 
+      @click="addItem" 
+      v-if="!toAddItem">
       <i class="icon-plus"></i>
     </div>
   </div>
@@ -72,7 +78,7 @@ import ItemAddForm from "./ItemAddForm.vue";
 export default {
   name: "JsonView",
   props: { parsedData: {} },
-  data: function() {
+  data () {
     return {
       flowData: [],
       toAddItem: false,
@@ -80,7 +86,7 @@ export default {
     };
   },
 
-  created: function() {
+  created () {
     this.flowData = this.parsedData;
   },
   watch: {
