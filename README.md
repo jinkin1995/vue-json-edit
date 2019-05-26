@@ -1,6 +1,6 @@
 # Vue-Json-Edit
 
-> visual JSON editor built as an vue component. Provides a basic GUI
+> Visual JSON Editor built as an vue component. Provides a basic GUI
 
 
 </br>
@@ -28,8 +28,16 @@ import vue from 'vue'
 import JsonEditor from 'vue-json-edit'
   
 Vue.use(JsonEditor)
-  
 ```
+### Props
+All props are optional.
+
+* objData: json data
+* options
+    * confirmText: strings of the confirm button
+    * cancelText: strings of the cancel button
+
+
 </br>
 
 ## Example
@@ -37,7 +45,14 @@ Single file component
 ``` html
 
 <template>
-    <JsonEditor :objData="jsonData" v-model="jsonData" ></JsonEditor>
+    <JsonEditor
+        :options="{
+            confirmText: 'confirm',
+            cancelText: 'cancel',
+        }"
+        :objData="jsonData" 
+        v-model="jsonData" >
+    </JsonEditor>
 </template>
 <script>
 export default {
@@ -46,7 +61,7 @@ export default {
         return {
             jsonData: {
                 name: 'mike',
-                age: 22,
+                age: 23,
                 phone: '18552129932',
                 address: ['AAA C1', 'BBB C2']
             }
@@ -54,8 +69,9 @@ export default {
     }
 }
 </script> 
-
 ```
+
+</br>
 
 ## Changelog
 
