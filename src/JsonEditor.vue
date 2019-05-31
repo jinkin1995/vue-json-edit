@@ -1,5 +1,7 @@
 <template>
-  <json-view :parsedData="parsedData" v-model="parsedData"></json-view>
+  <json-view 
+    :parsedData="parsedData" 
+    v-model="parsedData"></json-view>
 </template>
 
 <script>
@@ -56,6 +58,7 @@ export default {
           let parsedVal = val;
           if (this.getType(val) == "object") {
             parsedVal = parseJson(val);
+
           } else if (this.getType(val) == "array") {
             parsedVal = parseArray(val);
           }
@@ -86,6 +89,7 @@ export default {
           let parsedVal = val;
           if (this.getType(val) == "object") {
             parsedVal = parseJson(val);
+
           } else if (this.getType(val) == "array") {
             parsedVal = parseArray(val);
           }

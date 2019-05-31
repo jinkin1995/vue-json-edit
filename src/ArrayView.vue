@@ -39,7 +39,7 @@
               v-if="member.type == 'object' || member.type == 'array'"
               @click="closeBlock(index, $event)"
             >
-              <i class="icon-down-open"></i>
+              <i class="v-json-edit-icon-down-open"></i>
             </i>
             <i v-if="member.type == 'object'">
 							{{'{' + parsedData[index].childParams.length + '}'}}
@@ -66,21 +66,26 @@
           </span>
         </div>
 
-        <i class="del-btn" @click="delItem(parsedData, member, index)">
-          <i class="icon-trash"></i>
+        <i 
+          class="del-btn" 
+          @click="delItem(parsedData, member, index)">
+          <i class="v-json-edit-icon-trash"></i>
         </i>
       </li>
     </ol>
 
-    <item-add-form 
+    <item-add-form
 			v-if="toAddItem" 
 			@confirm="newItem" 
 			@cancel="cancelNewItem" 
 			:needName="false">
 		</item-add-form>
 
-    <div class="block add-key" v-if="!toAddItem" @click="addItem">
-      <i class="icon-plus"></i>
+    <div
+      class="block add-key" 
+      v-if="!toAddItem" 
+      @click="addItem">
+      <i class="v-json-edit-icon-plus"></i>
     </div>
   </div>
 </template>
