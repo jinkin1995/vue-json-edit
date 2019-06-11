@@ -30,7 +30,6 @@ import JsonEditor from 'vue-json-edit'
 Vue.use(JsonEditor)
 ```
 ### Props
-All props are optional.
 
 * objData: json data
 * options
