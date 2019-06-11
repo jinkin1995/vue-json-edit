@@ -103,6 +103,13 @@ export default {
       hideMyItem: {}
     };
   },
+  watch: { 
+    parsedData: { 
+      handler(newValue, oldValue) { 
+        this.flowData = this.parsedData; 
+      } 
+    } 
+  },
   components: {
     "item-add-form": ItemAddForm
   },

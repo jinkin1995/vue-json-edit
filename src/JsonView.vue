@@ -94,12 +94,11 @@ export default {
   props: { parsedData: {} },
   data () {
     return {
-      flowData: [],
+      flowData: this.parsedData,
       toAddItem: false,
       hideMyBlock: {}
     };
   },
-
   created () {
     this.flowData = this.parsedData;
   },
