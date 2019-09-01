@@ -143,6 +143,7 @@ export default {
       if (obj.type == "array" || obj.type == "object") {
         oj.childParams = obj.val;
         oj.remark = null;
+
       } else {
         oj.childParams = null;
         oj.remark = obj.val;

@@ -35,7 +35,7 @@ export default {
 		return {
 			jsonData: {
 				name: 'may',
-				age: 23,
+				age: null,
 				address: ['Panyu Shiqiao on Canton', 'Tianhe', {
 					city: 'forida meta 11'
 				}],

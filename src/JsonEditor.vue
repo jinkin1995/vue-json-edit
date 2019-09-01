@@ -62,6 +62,9 @@ export default {
         keys.forEach((k, index) => {
           let val = json[k];
           let parsedVal = val;
+
+          console.log('k', val)
+
           if (this.getType(val) == "object") {
             parsedVal = parseJson(val);
 
@@ -134,6 +137,11 @@ export default {
           break;
         case "[object Object]":
           return "object";
+          break;
+        case "[object Null]":
+        case "[object Function]":
+        case "[object Undefined]":
+          return "string"
           break;
         default:
           return typeof obj;
