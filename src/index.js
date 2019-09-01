@@ -5,7 +5,6 @@ import PackageFile from '../package.json'
 
 const VERSION = PackageFile.version
 
-
 const install = (Vue) => {
   if (install.installed) return
 

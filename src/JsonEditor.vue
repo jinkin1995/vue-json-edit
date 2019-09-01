@@ -14,6 +14,12 @@ export default {
     },
     options: {
       type: Object,
+      default: function () {
+        return { 
+          confirmText: "confirm",
+          cancelText: "cancel"
+        }
+      },
     }
   },
   provide () {
