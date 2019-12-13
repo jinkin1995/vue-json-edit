@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import JsonView from "./JsonView.vue";
+
 export default {
   name: "JsonEditor",
   props: {
@@ -54,6 +56,9 @@ export default {
       deep: true
     }
   },
+  components: {
+    "json-view": JsonView
+  },
   methods: {
     jsonParse: function (jsonStr) {
       let parseJson = json => {
@@ -62,8 +67,6 @@ export default {
         keys.forEach((k, index) => {
           let val = json[k];
           let parsedVal = val;
-
-          console.log('k', val)
 
           if (this.getType(val) == "object") {
             parsedVal = parseJson(val);

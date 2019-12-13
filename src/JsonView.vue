@@ -110,11 +110,12 @@ export default {
     }
   },
   components: {
-    "item-add-form": ItemAddForm
+    "item-add-form": ItemAddForm,
+    "array-view": () => import("./ArrayView.vue")
   },
   methods: {
     delItem: function(parentDom, item, index) {
-      this.flowData = this.flowData.rmIndex(index);
+      this.flowData.splice(index, 1);
       if (this.hideMyBlock[index]) this.hideMyBlock[index] = false;
       this.$emit("input", this.flowData);
     },
