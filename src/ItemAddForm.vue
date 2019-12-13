@@ -123,7 +123,7 @@ export default {
     },
 
     updateFromTribute (e) {
-      this.valName = e.target.value
+      this.valName = e.target.value.replace(' ', '')
     }
   }
 };

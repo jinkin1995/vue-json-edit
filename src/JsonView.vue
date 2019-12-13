@@ -125,7 +125,7 @@ export default {
       this.$emit("input", this.flowData);
     },
     updateFromTribute (item, e) {
-      item.remark = e.target.value
+      item.remark = e.target.value.replace(' ', '')
     },
     closeBlock: function(index, e) {
       this.$set(
