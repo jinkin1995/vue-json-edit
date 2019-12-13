@@ -1,14 +1,14 @@
 <template>
   <div class="add-form pure-form">
     <div class="f-input">
-      <input 
-        type="text" 
+      <input
+        type="text"
         v-model="keyName"
         v-if="needName"
-        class="f-input-m" 
+        class="f-input-m"
         placeholder="name">
       <select v-model="formatSelected" class="f-input-m">
-        <option 
+        <option
           v-for="(item, index) in formats"
           :value="item"
           :key="index">
@@ -20,13 +20,16 @@
       </span>
 
       <template v-if="formatSelected !='array' && formatSelected != 'object'">
-        <input
-          type="text"
-          v-model="valName"
-          class="f-input-m"
-          placeholder="value"
-          v-if="formatSelected == 'string'"
-        >
+        <vue-tribute :options="tributeOptions">
+          <input
+            type="text"
+            v-model="valName"
+            class="f-input-m"
+            placeholder="value"
+            @tribute-replaced="updateFromTribute"
+            v-if="formatSelected == 'string'"
+          >
+        </vue-tribute>
         <input
           type="number"
           v-model="valName"
@@ -49,12 +52,12 @@
     </div>
 
     <div class="f-btns">
-      <button 
-        class="pure-button f-confirm" 
+      <button
+        class="pure-button f-confirm"
         @click="confirm">
         {{ this.formBtnText.confirmText }}
       </button>
-      <button 
+      <button
         class="pure-button"
         @click="cancel">
         {{ this.formBtnText.cancelText }}
@@ -64,8 +67,13 @@
 </template>
 
 <script>
+import VueTribute from 'vue-tribute'
+
 export default {
   name: 'ItemAddForm',
+  components: {
+    VueTribute
+  },
   data () {
     return {
       formats: ['string', 'array', 'object', 'number', 'boolean'],
@@ -80,7 +88,7 @@ export default {
       default: true
     }
   },
-  inject: ['formBtnText'],
+  inject: ['formBtnText', 'tributeOptions'],
   methods: {
     confirm: function() {
       let val = null;
@@ -112,6 +120,10 @@ export default {
 
     dealNumber: function() {
       this.valName = Number(this.valName);
+    },
+
+    updateFromTribute (e) {
+      this.valName = e.target.value
     }
   }
 };

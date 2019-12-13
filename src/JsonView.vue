@@ -21,17 +21,17 @@
           <i class="v-json-edit-icon-down-open"></i>
         </i>
         <i
-          class="del-btn" 
+          class="del-btn"
           @click="delItem(parsedData, item, index)">
           <i class="v-json-edit-icon-trash"></i>
         </i>
-        <i 
-          v-if="item.type == 'object'" 
+        <i
+          v-if="item.type == 'object'"
           class="i-type">
           {{'{' + item.childParams.length + '}'}}
         </i>
-        <i 
-          v-if="item.type == 'array'" 
+        <i
+          v-if="item.type == 'array'"
           class="i-type">
           {{'[' + item.childParams.length + ']'}}
         </i>
@@ -47,11 +47,14 @@
 
         <template v-else>
           <span class="val">
-            <input 
-              type="text" 
-              v-model="item.remark" 
-              class="val-input" 
-              v-if="item.type == 'string'">
+            <vue-tribute :options="tributeOptions">
+              <input
+                type="text"
+                v-model="item.remark"
+                @tribute-replaced="updateFromTribute(item, $event)"
+                class="val-input"
+                v-if="item.type == 'string'">
+            </vue-tribute>
             <input
               type="number"
               v-model.number="item.remark"
@@ -72,14 +75,14 @@
       </span>
     </span>
 
-    <item-add-form 
-      v-if="toAddItem" 
-      @confirm="newItem" 
+    <item-add-form
+      v-if="toAddItem"
+      @confirm="newItem"
       @cancel="cancelNewItem"></item-add-form>
 
-    <div 
-      class="block add-key" 
-      @click="addItem" 
+    <div
+      class="block add-key"
+      @click="addItem"
       v-if="!toAddItem">
       <i class="v-json-edit-icon-plus"></i>
     </div>
@@ -88,10 +91,12 @@
 
 <script>
 import ItemAddForm from "./ItemAddForm.vue";
+import VueTribute from 'vue-tribute'
 
 export default {
   name: "JsonView",
   props: { parsedData: {} },
+  inject: ['tributeOptions'],
   data () {
     return {
       flowData: this.parsedData,
@@ -110,7 +115,8 @@ export default {
     }
   },
   components: {
-    "item-add-form": ItemAddForm
+    "item-add-form": ItemAddForm,
+    VueTribute
   },
   methods: {
     delItem: function(parentDom, item, index) {
@@ -118,7 +124,9 @@ export default {
       if (this.hideMyBlock[index]) this.hideMyBlock[index] = false;
       this.$emit("input", this.flowData);
     },
-
+    updateFromTribute (item, e) {
+      item.remark = e.target.value
+    },
     closeBlock: function(index, e) {
       this.$set(
         this.hideMyBlock,
@@ -160,6 +168,7 @@ export default {
     },
 
     keyInputBlur: function(item, e) {
+      console.log(item)
       if (item.name.length <= 0) {
         alert("please must input a name!");
         item.name = "null";

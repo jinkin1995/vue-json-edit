@@ -1,6 +1,6 @@
 <template>
-  <json-view 
-    :parsedData="parsedData" 
+  <json-view
+    :parsedData="parsedData"
     v-model="parsedData"></json-view>
 </template>
 
@@ -10,12 +10,29 @@ export default {
   props: {
     objData: {
       type: Object,
-      required: true 
+      required: true
+    },
+    tributeOptions: {
+      type: Object,
+      default: function () {
+        return {
+          collection: [
+            {
+              trigger: '@',
+              values: [
+                {key: 'miss', value: 'miss'},
+                {key: 'miss1', value: 'miss2'},
+                {key: 'miss3', value: 'miss3'}
+              ]
+            }
+          ]
+        }
+      }
     },
     options: {
       type: Object,
       default: function () {
-        return { 
+        return {
           confirmText: "confirm",
           cancelText: "cancel"
         }
@@ -24,7 +41,8 @@ export default {
   },
   provide () {
     return {
-      formBtnText: this.options
+      formBtnText: this.options,
+      tributeOptions: this.tributeOptions
     }
   },
   data () {
@@ -200,4 +218,53 @@ export default {
 
 <style lang="less">
 @import "./assets/styles/common.less";
+  .v-tribute {
+    display: inline-block;
+  }
+
+/* Tribute-specific styles */
+.tribute-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: auto;
+  max-height: 300px;
+  max-width: 500px;
+  overflow: auto;
+  display: block;
+  z-index: 999999;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(#000, 0.13);
+}
+.tribute-container ul {
+  margin: 0;
+  margin-top: 2px;
+  padding: 0;
+  list-style: none;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid rgba(#000, 0.13);
+  background-clip: padding-box;
+  overflow: hidden;
+}
+.tribute-container li {
+  color: #3f5efb;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.tribute-container li.highlight,
+.tribute-container li:hover {
+  background: #3f5efb;
+  color: #fff;
+}
+.tribute-container li span {
+  font-weight: bold;
+}
+.tribute-container li.no-match {
+  cursor: default;
+}
+.tribute-container .menu-highlighted {
+  font-weight: bold;
+}
 </style>

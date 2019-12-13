@@ -44,7 +44,9 @@
   },
   "dependencies": {
     "highlight.js": "^9.15.6",
-    "vue": "^2.6.8"
+    "tributejs": "^2.3.7",
+    "vue": "^2.6.8",
+    "vue-tribute": "^1.0.3"
   },
   "browserslist": [
     "> 1%",
