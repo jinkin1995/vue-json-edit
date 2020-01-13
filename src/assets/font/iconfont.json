@@ -1,0 +1,51 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5397020",
+      "name": "drag",
+      "font_class": "drag",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "11981168",
+      "name": "add_square_outlined",
+      "font_class": "add_square_outlined",
+      "unicode": "e925",
+      "unicode_decimal": 59685
+    },
+    {
+      "icon_id": "12331647",
+      "name": "窗口",
+      "font_class": "chuangkou",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "12590280",
+      "name": "arrow_drop_down",
+      "font_class": "arrow_drop_down",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "12752068",
+      "name": "搜索",
+      "font_class": "sousuo_huaban",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "12752070",
+      "name": "回收站",
+      "font_class": "huishouzhan_huaban",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    }
+  ]
+}

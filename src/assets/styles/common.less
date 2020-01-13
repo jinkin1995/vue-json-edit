@@ -29,18 +29,36 @@ ol, ul {
     }
 }
 
+.tools {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 30px;
+}
+
+.tools-types {
+    position: relative;
+    right: 20px;
+}
 
 .del-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 99999999999999;
     cursor: pointer;
     transition: opacity .4s ease;
 
     &:hover {
         opacity: .6;
     }
+}
+
+.dragbar {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    bottom: 0;
+    width: 5px;
+    font-size: 18px;
+    margin-right: 15px;
+    cursor: pointer;
 }
 
 .des {
@@ -58,7 +76,7 @@ ol, ul {
 
 .block_content {
     text-align: left;
-    margin-left: 30px;
+    margin-left: 20px;
     line-height: 1.5 !important;
 
     .i-type {
@@ -108,8 +126,6 @@ ol, ul {
 
 .collapse-down {
     float: left;
-    margin-top: 2px;
-    margin-right: 2px;
     color: #000;
     cursor: pointer;
     transition: transform .2s ease;

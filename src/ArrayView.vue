@@ -1,77 +1,90 @@
 <template>
   <div class="block_content array">
     <ol class="array-ol">
-      <li
-        v-for="(member, index) in flowData"
-        :key="index"
-        :class="['array-item', {'hide-item': hideMyItem[index] == true}]"
-      >
-        <p v-if="member.type !== 'object' && member.type !== 'array'">
-          <input
-            type="text"
-            v-model="parsedData[index].remark"
-            class="val-input"
-            v-if="member.type == 'string'"
-            placeholder="string"
-          >
-          <input
-            type="number"
-            v-model.number="parsedData[index].remark"
-            class="val-input"
-            v-if="member.type == 'number'"
-            placeholder="number"
-          >
-          <select
-            name="value"
-            v-model="parsedData[index].remark"
-            class="val-input"
-            v-if="member.type == 'boolean'"
-          >
-            <option :value="true">true</option>
-            <option :value="false">false</option>
-          </select>
-        </p>
-        <div v-else>
-          <span :class="['json-key', 'json-desc']">
-            {{parsedData[index].type.toUpperCase()}}
-            <i
-              class="collapse-down"
-              v-if="member.type == 'object' || member.type == 'array'"
-              @click="closeBlock(index, $event)"
+
+      <draggable v-model="flowData" handle=".dragbar" @end="onDragEnd">
+        <li
+          v-for="(member, index) in flowData"
+          :key="`${member.remark}${index}`"
+          :class="['array-item', {'hide-item': hideMyItem[index] == true}]"
+        >
+          <p v-if="member.type !== 'object' && member.type !== 'array'">
+            <input
+              type="text"
+              v-model="member.remark"
+              class="val-input"
+              v-if="member.type == 'string'"
+              placeholder="string"
             >
-              <i class="v-json-edit-icon-down-open"></i>
+            <input
+              type="number"
+              v-model.number="member.remark"
+              class="val-input"
+              v-if="member.type == 'number'"
+              placeholder="number"
+            >
+            <select
+              name="value"
+              v-model="member.remark"
+              class="val-input"
+              v-if="member.type == 'boolean'"
+            >
+              <option :value="true">true</option>
+              <option :value="false">false</option>
+            </select>
+          </p>
+          <div v-else>
+            <span :class="['json-key', 'json-desc']">
+              {{member.type.toUpperCase()}}
+              <i
+                class="collapse-down v-json-edit-icon-arrow_drop_down"
+                v-if="member.type == 'object' || member.type == 'array'"
+                @click="closeBlock(index, $event)"
+              >
+              </i>
+              <!-- <i v-if="member.type == 'object'">
+                {{'{' + member.childParams.length + '}'}}
+              </i>
+              <i v-if="member.type == 'array'">
+                {{'[' + member.childParams.length + ']'}}
+              </i> -->
+            </span>
+            
+            <span class="json-val">
+              <template v-if="member.type == 'array'">
+                <array-view
+                  :parsedData="member.childParams"
+                  v-model="member.childParams"
+                ></array-view>
+              </template>
+
+              <template v-if="member.type == 'object'">
+                <json-view
+                  :parsedData="member.childParams"
+                  v-model="member.childParams"
+                ></json-view>
+              </template>
+            </span>
+          </div>
+
+          <div class="tools">
+            <select v-model="member.type" class="tools-types" @change="itemTypeChange(member)">
+              <option 
+                v-for="(item, index) in formats"
+                :value="item"
+                :key="index">
+                {{item}}
+              </option>
+            </select>
+            <i class="dragbar v-json-edit-icon-drag"></i>
+            <i
+              class="del-btn" 
+              @click="delItem(parsedData, member, index)">
+              <i class="v-json-edit-icon-huishouzhan_huaban"></i>
             </i>
-            <i v-if="member.type == 'object'">
-							{{'{' + parsedData[index].childParams.length + '}'}}
-						</i>
-            <i v-if="member.type == 'array'">
-							{{'[' + parsedData[index].childParams.length + ']'}}
-						</i>
-          </span>
-          
-          <span class="json-val">
-            <template v-if="member.type == 'array'">
-              <array-view
-                :parsedData="parsedData[index].childParams"
-                v-model="parsedData[index].childParams"
-              ></array-view>
-            </template>
-
-            <template v-if="member.type == 'object'">
-              <json-view
-                :parsedData="parsedData[index].childParams"
-                v-model="parsedData[index].childParams"
-              ></json-view>
-            </template>
-          </span>
-        </div>
-
-        <i 
-          class="del-btn" 
-          @click="delItem(parsedData, member, index)">
-          <i class="v-json-edit-icon-trash"></i>
-        </i>
-      </li>
+          </div>
+        </li>
+      </draggable>
     </ol>
 
     <item-add-form
@@ -85,7 +98,7 @@
       class="block add-key" 
       v-if="!toAddItem" 
       @click="addItem">
-      <i class="v-json-edit-icon-plus"></i>
+      <i class="v-json-edit-icon-add"></i>
     </div>
   </div>
 </template>
@@ -98,6 +111,7 @@ export default {
   props: ["parsedData"],
   data: function() {
     return {
+      formats: ['string', 'array', 'object', 'number', 'boolean'],
       flowData: this.parsedData,
       toAddItem: false,
       hideMyItem: {}
@@ -106,7 +120,7 @@ export default {
   watch: { 
     parsedData: { 
       handler(newValue, oldValue) { 
-        this.flowData = this.parsedData; 
+        this.flowData = this.parsedData || []; 
       } 
     } 
   },
@@ -151,6 +165,23 @@ export default {
       this.flowData.push(oj);
       this.$emit("input", this.flowData);
       this.cancelNewItem();
+    },
+
+    onDragEnd: function() {
+      this.$emit("input", this.flowData);
+    },
+
+    itemTypeChange: function(item) {
+      console.log(item)
+      if (item.type === 'array') {
+        item.remark = []
+      }
+      if (item.type === 'object') {
+        item.remark = {}
+      }
+      if (item.type === 'boolean') {
+        item.remark = true
+      }
     }
   }
 };

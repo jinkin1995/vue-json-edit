@@ -44,7 +44,8 @@
   },
   "dependencies": {
     "highlight.js": "^9.15.6",
-    "vue": "^2.6.8"
+    "vue": "^2.6.8",
+    "vuedraggable": "^2.23.2"
   },
   "browserslist": [
     "> 1%",

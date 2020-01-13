@@ -1,46 +1,10 @@
 @font-face {font-family: "iconfont";
-  src: url('../font/iconfont.eot?t=1578908417703'); /* IE9 */
-  src: url('../font/iconfont.eot?t=1578908417703#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  src: url('iconfont.eot?t=1578908417703'); /* IE9 */
+  src: url('iconfont.eot?t=1578908417703#iefix') format('embedded-opentype'), /* IE6-IE8 */
   url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAATkAAsAAAAACpQAAASWAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDVgqHRIYoATYCJAMcCxAABCAFhG0HgQcbHwnIHpIkSEABBQooMA8ucTz8t9//9pmZK1/UEO8e1SqLZJrwDlVLYnVKJ4slQno//57vuUmZPCOPGuhmc3mTOl0wsN3cTtan3M6fgPNv/P/gWPKX/1vl2duDvGJGLbJ5NBxQVFGU8AaSwjaF2NUu6JHAiwl0m1cJHevUYwDoFMpWgbjp4M2gC5mUHFxotXXKgQXiHai1aTZxFcBb+/PjH9QLHUiqDMqOp290tEGbn+TLItL/32+YaYFAew5wh5GxAyjEs1TXU6Sb2oHU/bmNynGgVyspP8lnyc8qntleFv2fEE+STHGEXhXV/w8eoVIrskTUAFUvjbmcrvlJ6gbxUSfBoII6GaJ8dQUMCtQ2cMj8KWokgcY8oB/zIHYDxCNQNAds1yByf5dIqtCrf3+cqjAuPotMiYmOYjQqF7VyZ2h3YFdwh8EdiaFl7js+JngTVJ/PNowN3UHqwO1hMepYGw0vltJ0aDlCBimwjKJIwSUAD/NiqSEcZslIZGD0vXsG4u7dAc4jN7OItbcaRh+/g8jA7UZRUlTK7kDH+juNo4/eyibW3GxAQU/p05PhMB89aDwbeciG5wy4O8Vw6x4divQ2LB3MSt5wYOD5SOhey3v+1MIgH9wBxItBClqz7TK4OwR3WCm06lwxteVMGlChhH8nTasMRWyWUU1PqdBSYAA/NXwaJXuVeqrT5ep0ak94M3Q3XG5dqPcF2JX4Apb8X2vzdXv+Llapd97gdOqv6svRRedUsGdsB2QcgrquRB2HjOiKNnRAI0I7b4AO10Z0QetXmuI1GzTxpg02vmRbaVx8a48NXVDye0DHqU7p2jjTSh9o32uQr7h//a5oyAjUYQPqahwCmf8vlgWN7zaaNYt1UVoTdnEZGpZzZdSp56/foaVYqpPqrkyvn+7e3n/QM+B32st8qp3+CoP6P4P1/2PiYxhdlWXaFuZ6fGyce/BCK7rDgTMHOtCtLiQp2hQU6aLMA6+h7LOoBUFsNAIDnlHuld4QOwA6Zz8JdORf2QNA+o4+pSEDBvI0eS/t11g8q55ojG3xVUerAL61G4bsUEeB+pr2VimjpvAVFZfsU75SxdwUuXN9U4HGaXHgpiq61TG8mr5hT9vTjJVOENqQmIOkMQdZaxVRMDug0uMA1FoHodt2nQ/vMUJEiqIHtplOQRi0H5J+XyEbdA1RME+gMu4t1AaDhG4XI/GEPdbDQbUXsVnGNsYylnFYBS+nWWXKqe6HecVtFoNSm85iUXJEmbrq2mi2M/ZisY1dpFF8PVnmGE4UPEwn6nLY7RYYnyg4sVWutsuyr1lNDZf2RNVWwQOUo0SYmQyzYViMxXCwEnhx5sIyKvbx/WA8hZuZmNPhh5uFiSSO5TPqVKstgeis8pbqcCz1JaPw6pFJgsPguEqBB6MTcWBuNSVg+NLXc8KsZNXsNRI+zdSQgbiyqur+NZ7jvAi6Ke/cBIFIpEJqpEFapINyXTTziWabzSiNVMwiNgqK7HZ4sU1vtStmL+8SlFizKAqjjTZR8Bl8p743WhIUSRGMeX6L2ZtgNXdIdkEZZzd7o0YAAA==') format('woff2'),
-  url('../font/iconfont.woff?t=1578908417703') format('woff'),
-  url('../font/iconfont.ttf?t=1578908417703') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url('../font/iconfont.svg?t=1578908417703#iconfont') format('svg'); /* iOS 4.1- */
-}
-
-[class^="v-json-edit-icon-"]:before, 
-[class*=" v-json-edit-icon-"]:before {
-  font-family: "iconfont" !important;
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
- 
-  display: inline-block;
-  text-decoration: inherit;
-  width: 1em;
-  margin-right: .2em;
-  text-align: center;
-  /* opacity: .8; */
- 
-  /* For safety - reset parent styles, that can break glyph codes*/
-  font-variant: normal;
-  text-transform: none;
- 
-  /* fix buttons height, for twitter bootstrap */
-  line-height: 1em;
- 
-  /* Animation center compensation - margins should be symmetric */
-  /* remove if not needed */
-  margin-left: .2em;
- 
-  /* you can be more comfortable with increased icons size */
-  /* font-size: 120%; */
- 
-  /* Font smoothing. That was taken from TWBS */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
- 
-  /* Uncomment for 3D effect */
-  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  url('iconfont.woff?t=1578908417703') format('woff'),
+  url('iconfont.ttf?t=1578908417703') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1578908417703#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -51,27 +15,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.v-json-edit-icon-drag:before {
+.icon-drag:before {
   content: "\e603";
 }
 
-.v-json-edit-icon-add:before {
+.icon-add_square_outlined:before {
   content: "\e925";
 }
 
-.v-json-edit-icon-copy:before {
+.icon-chuangkou:before {
   content: "\e664";
 }
 
-.v-json-edit-icon-arrow_drop_down:before {
+.icon-arrow_drop_down:before {
   content: "\e62b";
 }
 
-.v-json-edit-icon-sousuo_huaban:before {
+.icon-sousuo_huaban:before {
   content: "\e614";
 }
 
-.v-json-edit-icon-huishouzhan_huaban:before {
+.icon-huishouzhan_huaban:before {
   content: "\e615";
 }
 
