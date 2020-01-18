@@ -1,9 +1,9 @@
 <template>
   <div class="block_content">
     <draggable v-model="flowData" handle=".dragbar" @end="onDragEnd">
-      <span
+      <div
         v-for="(item, index) in flowData"
-        :key="`${item.remark}${index}`"
+        :key="`${item.type}${index}`"
         :class="['block', 'clearfix', {'hide-block': hideMyBlock[index] == true}]"
       >
         <span class="json-key">
@@ -13,32 +13,14 @@
             class="key-input"
             v-if="typeof item.name == 'string'"
             @blur="keyInputBlur(item, $event)"
-          >
+          />
           <i
             class="collapse-down v-json-edit-icon-arrow_drop_down"
             v-if="item.type == 'object' || item.type == 'array'"
             @click="closeBlock(index, $event)"
-          >
-          </i>
-          <!-- <i 
-            v-if="item.type == 'object'" 
-            class="i-type">
-            {{'{' + item.childParams.length + '}'}}
-          </i>
-          <i 
-            v-if="item.type == 'array'" 
-            class="i-type">
-            {{'[' + item.childParams.length + ']'}}
-          </i> -->
-
-          <div class="tools">
-            <i class="dragbar v-json-edit-icon-drag"></i>
-            <i
-              class="del-btn" 
-              @click="delItem(parsedData, item, index)">
-              <i class="v-json-edit-icon-huishouzhan_huaban"></i>
-            </i>
-          </div>
+          ></i>
+          <i v-if="item.type == 'object'" class="i-type">{{'{' + item.childParams.length + '}'}}</i>
+          <i v-if="item.type == 'array'" class="i-type">{{'[' + item.childParams.length + ']'}}</i>
         </span>
         <span class="json-val">
           <template v-if="item.type == 'object'">
@@ -51,17 +33,18 @@
 
           <template v-else>
             <span class="val">
-              <input 
-                type="text" 
-                v-model="item.remark" 
-                class="val-input" 
-                v-if="item.type == 'string'">
+              <input
+                type="text"
+                v-model="item.remark"
+                class="val-input"
+                v-if="item.type == 'string'"
+              />
               <input
                 type="number"
                 v-model.number="item.remark"
                 class="val-input"
                 v-if="item.type == 'number'"
-              >
+              />
               <select
                 name="value"
                 v-model="item.remark"
@@ -74,18 +57,22 @@
             </span>
           </template>
         </span>
-      </span>
+
+        <div class="tools">
+          <select v-model="item.type" class="tools-types" @change="itemTypeChange(item)">
+            <option v-for="(type, index) in formats" :value="type" :key="index">{{type}}</option>
+          </select>
+          <i class="dragbar v-json-edit-icon-drag"></i>
+          <i class="del-btn" @click="delItem(parsedData, item, index)">
+            <i class="v-json-edit-icon-huishouzhan_huaban"></i>
+          </i>
+        </div>
+      </div>
     </draggable>
 
-    <item-add-form 
-      v-if="toAddItem" 
-      @confirm="newItem" 
-      @cancel="cancelNewItem"></item-add-form>
+    <item-add-form v-if="toAddItem" @confirm="newItem" @cancel="cancelNewItem"></item-add-form>
 
-    <div 
-      class="block add-key" 
-      @click="addItem" 
-      v-if="!toAddItem">
+    <div class="block add-key" @click="addItem" v-if="!toAddItem">
       <i class="v-json-edit-icon-add"></i>
     </div>
   </div>
@@ -97,14 +84,15 @@ import ItemAddForm from "./ItemAddForm.vue";
 export default {
   name: "JsonView",
   props: { parsedData: {} },
-  data () {
+  data() {
     return {
+      formats: ["string", "array", "object", "number", "boolean"],
       flowData: this.parsedData,
       toAddItem: false,
       hideMyBlock: {}
     };
   },
-  created () {
+  created() {
     this.flowData = this.parsedData || {};
   },
   watch: {
@@ -149,7 +137,6 @@ export default {
       if (obj.type == "array" || obj.type == "object") {
         oj.childParams = obj.val;
         oj.remark = null;
-
       } else {
         oj.childParams = null;
         oj.remark = obj.val;
@@ -175,6 +162,17 @@ export default {
 
     onDragEnd: function() {
       this.$emit("input", this.flowData);
+    },
+
+    itemTypeChange: function(item) {
+      console.log(item);
+      if (item.type === "array" || item.type === "object") {
+        item.childParams = [];
+        item.remark = null;
+      }
+      if (item.type === "boolean") {
+        item.remark = true;
+      }
     }
   }
 };
