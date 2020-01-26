@@ -44,6 +44,7 @@
                 v-model.number="item.remark"
                 class="val-input"
                 v-if="item.type == 'number'"
+                @input="numberInputChange(member)"
               />
               <select
                 name="value"
@@ -165,7 +166,6 @@ export default {
     },
 
     itemTypeChange: function(item) {
-      console.log(item);
       if (item.type === "array" || item.type === "object") {
         item.childParams = [];
         item.remark = null;
@@ -173,6 +173,13 @@ export default {
       if (item.type === "boolean") {
         item.remark = true;
       }
+      if (item.type === "number") {
+        item.remark = 0;
+      }
+    },
+
+    numberInputChange: function(item) {
+      if (!item.remark) item.remark = 0;
     }
   }
 };
