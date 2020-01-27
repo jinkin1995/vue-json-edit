@@ -173,6 +173,9 @@ export default {
       if (item.type === "boolean") {
         item.remark = true;
       }
+      if (item.type === "string") {
+        item.remark = "";
+      }
       if (item.type === "number") {
         item.remark = 0;
       }
