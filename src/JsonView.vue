@@ -44,7 +44,7 @@
                 v-model.number="item.remark"
                 class="val-input"
                 v-if="item.type == 'number'"
-                @input="numberInputChange(member)"
+                @input="numberInputChange(item)"
               />
               <select
                 name="value"
