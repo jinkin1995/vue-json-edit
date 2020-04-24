@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "highlight.js": "^9.15.6",
+    "lodash.clonedeep": "^4.5.0",
     "vue": "^2.6.8",
     "vuedraggable": "^2.23.2"
   },

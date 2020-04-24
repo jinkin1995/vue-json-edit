@@ -6,6 +6,7 @@
 
 <script>
 import JsonView from "./JsonView.vue";
+import cloneDeep from "lodash.clonedeep";
 
 export default {
   name: "JsonEditor",
@@ -50,7 +51,7 @@ export default {
           return;
         }
 
-        this.lastParsedData = newValue;
+        this.lastParsedData = cloneDeep(newValue);
         this.$emit("input", this.makeJson(this.parsedData));
       },
       deep: true
