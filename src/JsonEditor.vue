@@ -12,7 +12,7 @@ export default {
   name: "JsonEditor",
   props: {
     objData: {
-      type: Object,
+      type: [Object, Array],
       required: true 
     },
     options: {
@@ -32,7 +32,8 @@ export default {
   },
   data () {
     return {
-      parsedData: []
+      parsedData: [],
+      wrapperType: 'object'
     };
   },
   created () {
@@ -47,11 +48,13 @@ export default {
     },
     parsedData: {
       handler(newValue, oldValue) {
+        
         if (JSON.stringify(newValue) === JSON.stringify(this.lastParsedData)) {
           return;
         }
 
         this.lastParsedData = cloneDeep(newValue);
+        
         this.$emit("input", this.makeJson(this.parsedData));
       },
       deep: true
@@ -62,7 +65,7 @@ export default {
   },
   methods: {
     jsonParse: function (jsonStr) {
-      let parseJson = json => {
+      const parseJson = json => {
         let result = [];
         let keys = Object.keys(json);
         keys.forEach((k, index) => {
@@ -95,7 +98,7 @@ export default {
       };
 
       //
-      let parseArray = arrayObj => {
+      const parseArray = arrayObj => {
         let result = [];
         for (let i = 0; i < arrayObj.length; ++i) {
           let val = arrayObj[i];
@@ -126,8 +129,18 @@ export default {
       };
 
       // --
-      let parseBody = json => {
-        let r = parseJson(json);
+      const parseBody = data => {
+        let r = null;
+        switch(this.getType(data)) {
+          case 'array':
+            this.wrapperType = 'array';
+            r = parseArray(data);
+            break;
+          case 'object':
+            this.wrapperType = 'object';
+            r = parseJson(data);
+            break;
+        }
         return r;
       };
 
@@ -154,7 +167,7 @@ export default {
     },
 
     makeJson: function (dataArr) {
-      let revertWithObj = function(data) {
+      const revertWithObj = data => {
         let r = {};
         for (let i = 0; i < data.length; ++i) {
           let el = data[i];
@@ -173,7 +186,7 @@ export default {
         return r;
       };
 
-      let revertWithArray = function(data) {
+      const revertWithArray = data => {
         let arr = [];
         for (let i = 0; i < data.length; ++i) {
           let el = data[i];
@@ -191,8 +204,17 @@ export default {
         return arr;
       };
 
-      let revertMain = function(data) {
-        let r = revertWithObj(data);
+      const revertMain = data => {
+        let r = null;
+        switch(this.wrapperType) {
+          case 'array':
+            
+            r = revertWithArray(data);
+            break;
+          case 'object':
+            r = revertWithObj(data);
+            break;
+        }
         return r;
       };
 
