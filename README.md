@@ -24,7 +24,7 @@ npm install vue-json-edit --save
 ``` javascript
 //import it in your project At your entry point
 
-import vue from 'vue'
+import Vue from 'vue'
 import JsonEditor from 'vue-json-edit'
   
 Vue.use(JsonEditor)
