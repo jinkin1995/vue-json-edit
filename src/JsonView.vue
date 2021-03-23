@@ -1,80 +1,82 @@
 <template>
-  <div class="block_content">
-    <draggable v-model="flowData" handle=".dragbar" @end="onDragEnd">
-      <div
-        v-for="(item, index) in flowData"
-        :key="`${item.type}${index}`"
-        :class="['block', 'clearfix', {'hide-block': hideMyBlock[index] == true}]"
-      >
-        <span class="json-key">
-          <input
-            type="text"
-            v-model="item.name"
-            class="key-input"
-            v-if="typeof item.name == 'string'"
-            @blur="keyInputBlur(item, $event)"
-          />
-          <i
-            class="collapse-down v-json-edit-icon-arrow_drop_down"
-            v-if="item.type == 'object' || item.type == 'array'"
-            @click="closeBlock(index, $event)"
-          ></i>
-          <i v-if="item.type == 'object'" class="i-type">{{'{' + item.childParams.length + '}'}}</i>
-          <i v-if="item.type == 'array'" class="i-type">{{'[' + item.childParams.length + ']'}}</i>
-        </span>
-        <span class="json-val">
-          <template v-if="item.type == 'object'">
-            <json-view :parsedData="item.childParams" v-model="item.childParams"></json-view>
-          </template>
+  <div class="json-view-main">
+    <div class="block_content">
+      <draggable v-model="flowData" handle=".dragbar" @end="onDragEnd">
+        <div
+          v-for="(item, index) in flowData"
+          :key="`${item.type}${index}`"
+          :class="['block', 'clearfix', {'hide-block': hideMyBlock[index] == true}]"
+        >
+          <span class="json-key">
+            <input
+              type="text"
+              v-model="item.name"
+              class="key-input"
+              v-if="typeof item.name == 'string'"
+              @blur="keyInputBlur(item, $event)"
+            />
+            <i
+              class="collapse-down v-json-edit-icon-arrow_drop_down"
+              v-if="item.type == 'object' || item.type == 'array'"
+              @click="closeBlock(index, $event)"
+            ></i>
+            <i v-if="item.type == 'object'" class="i-type">{{'{' + item.childParams.length + '}'}}</i>
+            <i v-if="item.type == 'array'" class="i-type">{{'[' + item.childParams.length + ']'}}</i>
+          </span>
+          <span class="json-val">
+            <template v-if="item.type == 'object'">
+              <json-view :parsedData="item.childParams" v-model="item.childParams"></json-view>
+            </template>
 
-          <template v-else-if="item.type == 'array'">
-            <array-view :parsedData="item.childParams" v-model="item.childParams"></array-view>
-          </template>
+            <template v-else-if="item.type == 'array'">
+              <array-view :parsedData="item.childParams" v-model="item.childParams"></array-view>
+            </template>
 
-          <template v-else>
-            <span class="val">
-              <input
-                type="text"
-                v-model="item.remark"
-                class="val-input"
-                v-if="item.type == 'string'"
-              />
-              <input
-                type="number"
-                v-model.number="item.remark"
-                class="val-input"
-                v-if="item.type == 'number'"
-                @input="numberInputChange(item)"
-              />
-              <select
-                name="value"
-                v-model="item.remark"
-                class="val-input"
-                v-if="item.type == 'boolean'"
-              >
-                <option :value="true">true</option>
-                <option :value="false">false</option>
-              </select>
-            </span>
-          </template>
-        </span>
+            <template v-else>
+              <span class="val">
+                <input
+                  type="text"
+                  v-model="item.remark"
+                  class="val-input"
+                  v-if="item.type == 'string'"
+                />
+                <input
+                  type="number"
+                  v-model.number="item.remark"
+                  class="val-input"
+                  v-if="item.type == 'number'"
+                  @input="numberInputChange(item)"
+                />
+                <select
+                  name="value"
+                  v-model="item.remark"
+                  class="val-input"
+                  v-if="item.type == 'boolean'"
+                >
+                  <option :value="true">true</option>
+                  <option :value="false">false</option>
+                </select>
+              </span>
+            </template>
+          </span>
 
-        <div class="tools">
-          <select v-model="item.type" class="tools-types" @change="itemTypeChange(item)">
-            <option v-for="(type, index) in formats" :value="type" :key="index">{{type}}</option>
-          </select>
-          <i class="dragbar v-json-edit-icon-drag"></i>
-          <i class="del-btn" @click="delItem(parsedData, item, index)">
-            <i class="v-json-edit-icon-huishouzhan_huaban"></i>
-          </i>
+          <div class="tools">
+            <select v-model="item.type" class="tools-types" @change="itemTypeChange(item)">
+              <option v-for="(type, index) in formats" :value="type" :key="index">{{type}}</option>
+            </select>
+            <i class="dragbar v-json-edit-icon-drag"></i>
+            <i class="del-btn" @click="delItem(parsedData, item, index)">
+              <i class="v-json-edit-icon-huishouzhan_huaban"></i>
+            </i>
+          </div>
         </div>
+      </draggable>
+
+      <item-add-form v-if="toAddItem" @confirm="newItem" @cancel="cancelNewItem"></item-add-form>
+
+      <div class="block add-key" @click="addItem" v-if="!toAddItem">
+        <i class="v-json-edit-icon-add"></i>
       </div>
-    </draggable>
-
-    <item-add-form v-if="toAddItem" @confirm="newItem" @cancel="cancelNewItem"></item-add-form>
-
-    <div class="block add-key" @click="addItem" v-if="!toAddItem">
-      <i class="v-json-edit-icon-add"></i>
     </div>
   </div>
 </template>
@@ -187,3 +189,7 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+@import "./assets/styles/common.less";
+</style>
