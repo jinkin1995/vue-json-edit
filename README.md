@@ -75,13 +75,12 @@ export default {
 
 ## ..
 
-Aplipay: 
-![Aplipay](https://s3.bmp.ovh/imgs/2022/01/d5e26a068a6b7b03.png)
+Aplipay: </br>
+<img src="https://s3.bmp.ovh/imgs/2022/01/d5e26a068a6b7b03.png" width="300px">
 
 
-
-USDT:
-![USDT](https://s3.bmp.ovh/imgs/2022/01/8739eedae8a9a39d.jpeg)
+USDT: </br>
+<img src="https://s3.bmp.ovh/imgs/2022/01/8739eedae8a9a39d.jpeg" width="300px">
 
 
 
