@@ -73,4 +73,14 @@ export default {
 </br>
 
 
+## ..
+
+Aplipay: 
+
+https://s3.bmp.ovh/imgs/2022/01/d5e26a068a6b7b03.png
+
+USDT:
+
+https://s3.bmp.ovh/imgs/2022/01/8739eedae8a9a39d.jpeg
+
 
